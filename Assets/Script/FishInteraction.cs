@@ -15,16 +15,19 @@ public class FishInteraction : MonoBehaviour
     public Collider grabCollider; // assign the collider used for grabbing
     public float releaseTimeout;
     public float catchTimeout;
+    public float maxGrabTime = 3;
 
     public float AccumulatedGrabTime;
     public float TimeSinceLastRelease;
+    public OrbitalObjectPool orbitalObjectPool;
+    public bool released = false;
 
     [Tooltip("Reference to the GrabbableTimer component to get timing information from.")]
     [SerializeField] private GrabbableTimer _grabbableTimer;
 
     void Start()
     {
-        
+        orbitalObjectPool = GetComponentInParent<OrbitalObjectPool>();
         if (_grabbableTimer == null)
         {
             _grabbableTimer = GetComponent<GrabbableTimer>();
@@ -40,7 +43,7 @@ public class FishInteraction : MonoBehaviour
         if (_grabbableTimer.AccumulatedGrabTime >= catchTimeout)
         {
             // dissolve absorb fish
-            gameObject.DestroySafely();
+            orbitalObjectPool.ReturnToPool(gameObject);
             return;
         }
         //TimeOut
@@ -52,19 +55,22 @@ public class FishInteraction : MonoBehaviour
         bool isGrabbing = grabbable.SelectingPointsCount > 0;
         if (!isGrabbing) // not grabbing
         {
+            animator.SetBool("Struggle", false);
+            orbitalTangentMovement.dontMove = false;
             timerStarted = false;
         }
         else if (isGrabbing && !timerStarted) // start timer when grabbed
         {
+            orbitalTangentMovement.dontMove = true;
+            Debug.Log("fist grab");
             grabTime = Time.time;
             timerStarted = true;
             animator.SetBool("Struggle", true);
         }
         // force release
-        else if (timerStarted && Time.time - grabTime > 3f)
+        else if (timerStarted && Time.time - grabTime > maxGrabTime)
         {
             MakeUngrabable();
-            animator.SetBool("Struggle", false);
         }
     }
 
@@ -79,6 +85,8 @@ public class FishInteraction : MonoBehaviour
     {
         // Force release
         if (grabCollider == null) return;
+        orbitalTangentMovement.StartRecovery();// Call StartRecovery() to begin the recovery process when the object is released
+        
         Debug.Log("timeOut");
         StartCoroutine(DisableTemporarily(3.0f));
     }
@@ -87,10 +95,8 @@ public class FishInteraction : MonoBehaviour
         //grabCollider.enabled = false;
         // Disable grabbable to prevent further grabs
         grabInteractable.enabled = false;
-        orbitalTangentMovement.enableOrbitRecovery = true;
         yield return new WaitForSeconds(duration);
         //grabCollider.enabled = true;
         grabInteractable.enabled = true;
-        orbitalTangentMovement.enableOrbitRecovery = false;
     }
 }

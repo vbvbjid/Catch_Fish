@@ -549,36 +549,6 @@ MonoBehaviour:
   - {fileID: 175515789}
   - {fileID: 84607978}
   - {fileID: 1047603603}
-  _openXRSkinnedMeshRenderer: {fileID: 29682301}
-  _openXRRoot: {fileID: 813717668}
-  _openXRHandMaterialPropertyBlockEditor: {fileID: 29682300}
-  _openXRJointTransforms:
-  - {fileID: 1512158904}
-  - {fileID: 804497396}
-  - {fileID: 318916997}
-  - {fileID: 1400656317}
-  - {fileID: 1977439801}
-  - {fileID: 407146807}
-  - {fileID: 1479755761}
-  - {fileID: 1332281737}
-  - {fileID: 1775809012}
-  - {fileID: 962147039}
-  - {fileID: 2057153032}
-  - {fileID: 185753572}
-  - {fileID: 1104921892}
-  - {fileID: 51715703}
-  - {fileID: 83311138}
-  - {fileID: 680280555}
-  - {fileID: 1736218128}
-  - {fileID: 459113005}
-  - {fileID: 36251854}
-  - {fileID: 491000988}
-  - {fileID: 914967187}
-  - {fileID: 261743852}
-  - {fileID: 842176162}
-  - {fileID: 1701904567}
-  - {fileID: 1715355281}
-  - {fileID: 285573759}
 --- !u!1 &24285760
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,36 +2347,6 @@ MonoBehaviour:
   - {fileID: 1689284117}
   - {fileID: 1291564286}
   - {fileID: 24285761}
-  _openXRSkinnedMeshRenderer: {fileID: 1963841166}
-  _openXRRoot: {fileID: 267426850}
-  _openXRHandMaterialPropertyBlockEditor: {fileID: 1963841165}
-  _openXRJointTransforms:
-  - {fileID: 1285744848}
-  - {fileID: 160108046}
-  - {fileID: 1754229094}
-  - {fileID: 341018842}
-  - {fileID: 1439332084}
-  - {fileID: 882552807}
-  - {fileID: 192510128}
-  - {fileID: 973306939}
-  - {fileID: 555831068}
-  - {fileID: 916814664}
-  - {fileID: 1816899598}
-  - {fileID: 279917746}
-  - {fileID: 1549168539}
-  - {fileID: 472563889}
-  - {fileID: 1030326668}
-  - {fileID: 370886085}
-  - {fileID: 309056667}
-  - {fileID: 758685666}
-  - {fileID: 1155215736}
-  - {fileID: 723427634}
-  - {fileID: 1643893503}
-  - {fileID: 125791222}
-  - {fileID: 796775616}
-  - {fileID: 1950527081}
-  - {fileID: 952197871}
-  - {fileID: 1374628006}
 --- !u!1 &125791221
 GameObject:
   m_ObjectHideFlags: 0
@@ -5540,12 +5480,7 @@ MonoBehaviour:
   _hand: {fileID: 57737181}
   _offset: {x: -0.1, y: -0.035, z: 0}
   _rotation: {x: 0.105225, y: -0.6678412, z: 0.013933297, w: 0.7366965}
-  _posOffset: {x: 0, y: -0.035, z: 0.1}
-  _rotOffset: {x: 0.084257655, y: 0.04868803, z: -0.064553, w: 0.99315816}
   _mirrorOffsetsForLeftHand: 1
-  _freezeRotationX: 0
-  _freezeRotationY: 0
-  _freezeRotationZ: 0
 --- !u!1 &432409109
 GameObject:
   m_ObjectHideFlags: 0
@@ -8586,12 +8521,7 @@ MonoBehaviour:
   _hand: {fileID: 2049146544}
   _offset: {x: -0.1, y: -0.035, z: 0}
   _rotation: {x: 0.105225, y: -0.6678412, z: 0.013933297, w: 0.7366965}
-  _posOffset: {x: 0, y: -0.035, z: 0.1}
-  _rotOffset: {x: 0.084257655, y: 0.04868803, z: -0.064553, w: 0.99315816}
   _mirrorOffsetsForLeftHand: 1
-  _freezeRotationX: 0
-  _freezeRotationY: 0
-  _freezeRotationZ: 0
 --- !u!1 &758685665
 GameObject:
   m_ObjectHideFlags: 0
@@ -9433,7 +9363,6 @@ GameObject:
   - component: {fileID: 861049027}
   - component: {fileID: 861049026}
   - component: {fileID: 861049025}
-  - component: {fileID: 861049024}
   m_Layer: 0
   m_Name: fishPool
   m_TagString: Untagged
@@ -9441,23 +9370,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &861049024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861049023}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed4c7059c7054a7ebfa02e334ed1676, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectPool: {fileID: 0}
-  initialSpawnCount: 5
-  orbitalPrefab: {fileID: 6448699896239815623, guid: e68990f32b50646cfa53b4b956a713cf,
-    type: 3}
-  activeCountText: {fileID: 0}
 --- !u!114 &861049025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9494,13 +9406,13 @@ MonoBehaviour:
   poolParent: {fileID: 861049027}
   centerXZ: {x: 0, y: 0}
   minYHeight: 0.2
-  maxYHeight: 2
+  maxYHeight: 1.7
   yHeightInterval: 0.2
   minRadius: 1
   maxRadius: 2
   radiusInterval: 0.2
   angleInterval: 20
-  orbitSpeed: 50
+  orbitSpeed: 10
 --- !u!4 &861049027
 Transform:
   m_ObjectHideFlags: 0
@@ -10772,7 +10684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc5c234723e3a54d8dd09b131117743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshType: 4
+  _meshType: 0
 --- !u!114 &964696241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10804,7 +10716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609c54f376cffc4da1ab9401cc1a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonType: 4
+  _skeletonType: 0
   _updateRootPose: 0
   _updateRootScale: 1
   _enablePhysicsCapsules: 0
@@ -13272,8 +13184,6 @@ MonoBehaviour:
   _collider: {fileID: 2095226110}
   _localPositionOffset: {x: 0, y: 0, z: 0}
   _rotationOffset: {x: 0, y: 0, z: 0, w: 1}
-  _posOffset: {x: 0, y: 0, z: 0}
-  _rotOffset: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   _mirrorOffsetsForLeftHand: 1
 --- !u!1 &1174119145
 GameObject:
@@ -14063,10 +13973,6 @@ MonoBehaviour:
   enableDynamicResolution: 1
   minDynamicResolutionScale: 1
   maxDynamicResolutionScale: 1
-  quest2MinDynamicResolutionScale: 0.7
-  quest2MaxDynamicResolutionScale: 1.3
-  quest3MinDynamicResolutionScale: 0.7
-  quest3MaxDynamicResolutionScale: 1.6
   minRenderScale: 0.7
   maxRenderScale: 1
   _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
@@ -14125,7 +14031,6 @@ MonoBehaviour:
   SimultaneousHandsAndControllersEnabled: 0
   _readOnlyWideMotionModeHandPosesEnabled: 0
   wideMotionModeHandPosesEnabled: 0
-  dynamicResolutionVersion: 1
 --- !u!114 &1255517965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14148,7 +14053,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255517962}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
   m_Name: 
@@ -15247,12 +15152,7 @@ MonoBehaviour:
   _hand: {fileID: 2049146544}
   _offset: {x: 0, y: 0, z: 0}
   _rotation: {x: 0, y: 0, z: 0, w: 1}
-  _posOffset: {x: 0, y: 0, z: 0}
-  _rotOffset: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   _mirrorOffsetsForLeftHand: 0
-  _freezeRotationX: 0
-  _freezeRotationY: 0
-  _freezeRotationZ: 0
 --- !u!1 &1372701159
 GameObject:
   m_ObjectHideFlags: 0
@@ -17300,7 +17200,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -19023,12 +18923,7 @@ MonoBehaviour:
   _hand: {fileID: 57737181}
   _offset: {x: -0.11, y: -0.075, z: -0.02}
   _rotation: {x: 0.105225, y: -0.6678412, z: 0.013933297, w: 0.7366965}
-  _posOffset: {x: -0.02, y: -0.075, z: 0.11}
-  _rotOffset: {x: 0.084257655, y: 0.04868803, z: -0.064553, w: 0.99315816}
   _mirrorOffsetsForLeftHand: 1
-  _freezeRotationX: 0
-  _freezeRotationY: 0
-  _freezeRotationZ: 0
 --- !u!4 &1734006146
 Transform:
   m_ObjectHideFlags: 0
@@ -20869,7 +20764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc5c234723e3a54d8dd09b131117743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshType: 5
+  _meshType: 1
 --- !u!114 &1918479144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20901,7 +20796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609c54f376cffc4da1ab9401cc1a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonType: 5
+  _skeletonType: 1
   _updateRootPose: 0
   _updateRootScale: 1
   _enablePhysicsCapsules: 0
@@ -20990,8 +20885,6 @@ MonoBehaviour:
   _collider: {fileID: 1734006143}
   _localPositionOffset: {x: 0, y: 0, z: 0}
   _rotationOffset: {x: 0, y: 0, z: 0, w: 1}
-  _posOffset: {x: 0, y: 0, z: 0}
-  _rotOffset: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   _mirrorOffsetsForLeftHand: 1
 --- !u!1 &1921274881
 GameObject:
@@ -22778,12 +22671,7 @@ MonoBehaviour:
   _hand: {fileID: 57737181}
   _offset: {x: 0, y: 0, z: 0}
   _rotation: {x: 0, y: 0, z: 0, w: 1}
-  _posOffset: {x: 0, y: 0, z: 0}
-  _rotOffset: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   _mirrorOffsetsForLeftHand: 0
-  _freezeRotationX: 0
-  _freezeRotationY: 0
-  _freezeRotationZ: 0
 --- !u!1 &2080686972
 GameObject:
   m_ObjectHideFlags: 0
@@ -23103,12 +22991,7 @@ MonoBehaviour:
   _hand: {fileID: 2049146544}
   _offset: {x: -0.11, y: -0.075, z: -0.02}
   _rotation: {x: 0.105225, y: -0.6678412, z: 0.013933297, w: 0.7366965}
-  _posOffset: {x: -0.02, y: -0.075, z: 0.11}
-  _rotOffset: {x: 0.084257655, y: 0.04868803, z: -0.064553, w: 0.99315816}
   _mirrorOffsetsForLeftHand: 1
-  _freezeRotationX: 0
-  _freezeRotationY: 0
-  _freezeRotationZ: 0
 --- !u!4 &2095226113
 Transform:
   m_ObjectHideFlags: 0
@@ -23517,6 +23400,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1814265702923318464, guid: e68990f32b50646cfa53b4b956a713cf,
+        type: 3}
+      propertyPath: recoverySpeed
+      value: 0.0001
+      objectReference: {fileID: 0}
     - target: {fileID: 5923837487151096189, guid: e68990f32b50646cfa53b4b956a713cf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23575,7 +23463,7 @@ PrefabInstance:
     - target: {fileID: 6448699896239815623, guid: e68990f32b50646cfa53b4b956a713cf,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -54,6 +54,7 @@ public class OrbitalSpawnController : MonoBehaviour
         // Handle automatic despawning
         if (autoDespawnEnabled && Time.time >= nextDespawnTime)
         {
+            Debug.Log("auto despawn");
             GameObject objectToDespawn = FindRandomActiveObject();
             if (objectToDespawn != null)
             {

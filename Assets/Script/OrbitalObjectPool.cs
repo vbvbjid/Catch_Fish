@@ -123,6 +123,7 @@ public class OrbitalObjectPool : MonoBehaviour
 
     private void ConfigureOrbitalMovement(OrbitalTangentMovement orbitalMovement)
     {
+        Debug.Log("config start");
         // Select values from our pre-generated uniform distributions
         Vector3 centerPos = GetNextCenterPosition();
         float radius = GetNextRadius();
@@ -143,10 +144,6 @@ public class OrbitalObjectPool : MonoBehaviour
         orbitalMovement.maxCycleTime = 8f;
         orbitalMovement.useRandomCycles = true;
         orbitalMovement.tangentLength = 2f;
-        orbitalMovement.enableOrbitRecovery = true;
-        orbitalMovement.maxAllowedDeviation = 1.0f;
-        orbitalMovement.recoverySpeed = 2.0f;
-        orbitalMovement.visualizeDeviation = true;
     }
 
     private Vector3 GetNextCenterPosition()
@@ -210,6 +207,7 @@ public class OrbitalObjectPool : MonoBehaviour
     // Return an object to the pool
     public void ReturnToPool(GameObject obj)
     {
+        Debug.Log("return pool");
         obj.SetActive(false);
         
         // Reset position and rotation

@@ -39,6 +39,12 @@ public class GrabbableTimer : MonoBehaviour
     /// Whether the object is currently being grabbed.
     /// </summary>
     public bool IsGrabbed => _grabbable != null && _grabbable.SelectingPointsCount > 0;
+
+    /// <summary>
+    /// Event triggered when the object is released
+    /// </summary>
+    public event Action<float> OnObjectReleased;
+    
     private void Awake()
     {
         if (_grabbable == null)
@@ -102,7 +108,10 @@ public class GrabbableTimer : MonoBehaviour
                     _lastReleaseTime = Time.time;
                     _wasGrabbed = false;
                     
-                    if (_debugLogging) Debug.Log($"Object released after {grabDuration}s. Total grab time: {_accumulatedGrabTime}s", this);
+                    if (_debugLogging) Debug.Log($"Object released at {_lastReleaseTime} after {grabDuration}s. Total grab time: {_accumulatedGrabTime}s", this);
+                    
+                    // Fire the release event with the grab duration as parameter
+                    OnObjectReleased?.Invoke(grabDuration);
                 }
                 break;
         }
