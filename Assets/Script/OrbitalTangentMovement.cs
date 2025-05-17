@@ -24,7 +24,7 @@ public class OrbitalTangentMovement : MonoBehaviour
     public float tangentLength = 2f;         // Length of the tangent line visualization
     
     [Header("Orbit Recovery Settings")]
-    public bool enableOrbitRecovery = true;  // Whether to recover orbit after displacement
+    public bool enableOrbitRecovery = false;  // Whether to recover orbit after displacement
     public float maxAllowedDeviation = 1.0f; // Maximum allowed distance from orbit path
     public float recoverySpeed = 2.0f;       // Speed of return to orbit (higher = faster)
     public bool visualizeDeviation = true;   // Whether to show deviation in the editor
@@ -52,7 +52,7 @@ public class OrbitalTangentMovement : MonoBehaviour
         {
             // Compare current position with what we set
             float positionDiff = Vector3.Distance(transform.position, actualPosition);
-            
+
             // If the position was changed by something else, mark it
             if (positionDiff > 0.01f)
             {
@@ -166,6 +166,7 @@ public class OrbitalTangentMovement : MonoBehaviour
     }
     private void Start()
     {
+        enableOrbitRecovery = false;
         // Set starting angle
         currentAngle = startingAngle;
         

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Oculus.Interaction;
 using System.Collections;
+using Meta.WitAi;
 
 public class FishInteraction : MonoBehaviour
 {
@@ -12,33 +13,66 @@ public class FishInteraction : MonoBehaviour
     private float grabTime;
     private bool timerStarted = false;
     public Collider grabCollider; // assign the collider used for grabbing
+    public float releaseTimeout;
+    public float catchTimeout;
+
+    public float AccumulatedGrabTime;
+    public float TimeSinceLastRelease;
+
+    [Tooltip("Reference to the GrabbableTimer component to get timing information from.")]
+    [SerializeField] private GrabbableTimer _grabbableTimer;
 
     void Start()
     {
+        
+        if (_grabbableTimer == null)
+        {
+            _grabbableTimer = GetComponent<GrabbableTimer>();
+        }
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         //grabbable = GetComponent<Grabbable>();
         //grabInteractable = GetComponent<GrabInteractable>();
     }
-
-    void Update()
+    public void GrabInteraction()
     {
+        //successful catch
+        if (_grabbableTimer.AccumulatedGrabTime >= catchTimeout)
+        {
+            // dissolve absorb fish
+            gameObject.DestroySafely();
+            return;
+        }
+        //TimeOut
+        if (_grabbableTimer.TimeSinceLastRelease >= releaseTimeout)
+        {
+            //reset accumulated grab time
+            _grabbableTimer.ResetTimers();
+        }
         bool isGrabbing = grabbable.SelectingPointsCount > 0;
-        if (!isGrabbing)
+        if (!isGrabbing) // not grabbing
         {
             timerStarted = false;
         }
-        else if (isGrabbing && !timerStarted)
+        else if (isGrabbing && !timerStarted) // start timer when grabbed
         {
             grabTime = Time.time;
             timerStarted = true;
             animator.SetBool("Struggle", true);
         }
+        // force release
         else if (timerStarted && Time.time - grabTime > 3f)
         {
             MakeUngrabable();
             animator.SetBool("Struggle", false);
         }
+    }
+
+    void Update()
+    {
+        AccumulatedGrabTime = _grabbableTimer.AccumulatedGrabTime;
+        TimeSinceLastRelease = _grabbableTimer.TimeSinceLastRelease;
+        GrabInteraction();
     }
 
     void MakeUngrabable()
