@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public List<AudioClip> audioClips = new List<AudioClip>();
     public GameObject Player;
     public float life = 10.0f;
     public int fishCount;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         fishCount = 0;
     }
     void nextLevel()
@@ -44,26 +47,33 @@ public class GameManager : MonoBehaviour
     IEnumerator moveToNextLevel(int Level)
     {
         Vector3 targetPosition = levelPosition[Level];
+        Debug.Log("targetPos: " + targetPosition);
         float speed = 0f;
 
-        while (Vector3.Distance(Player.transform.position, targetPosition) > 0.01f)
+        while (Mathf.Abs(Player.transform.position.y - targetPosition.y) > 0.01f)
         {
             // Accelerate up to maxSpeed
             speed += acceleration * Time.deltaTime;
             speed = Mathf.Min(speed, maxSpeed);
 
-            // Move toward the target
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                targetPosition,
-                speed * Time.deltaTime
-            );
+            // Only move Y, keep X and Z the same
+            Vector3 current = Player.transform.position;
+            float newY = Mathf.MoveTowards(current.y, targetPosition.y, speed * Time.deltaTime);
+            Player.transform.position = new Vector3(current.x, newY, current.z);
 
             yield return null; // Wait for the next frame
         }
 
-        Player.transform.position = targetPosition; // Snap to exact position
+        // Snap exactly to final Y
+        Player.transform.position = new Vector3(
+            Player.transform.position.x,
+            targetPosition.y,
+            Player.transform.position.z
+        );
+
         Pool[currentLevel].SetActive(true);
+        audioSource.clip = audioClips[currentLevel];
+        audioSource.Play();
     }
     public void CatchFish()
     {
