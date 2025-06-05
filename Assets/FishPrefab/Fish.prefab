@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3780840871502128710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2306505815622015892}
+  - component: {fileID: 7409742453470517762}
+  m_Layer: 0
+  m_Name: Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2306505815622015892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3780840871502128710}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5923837487151096189}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!136 &7409742453470517762
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3780840871502128710}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3583088
+  m_Height: 1.4523243
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.0632987, z: -0.20683685}
 --- !u!1 &4222260107458192083
 GameObject:
   m_ObjectHideFlags: 0
@@ -49,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f8766c17-aaf8-4b55-9431-de8deea83842
-  instanceId: bd94912a-d8b8-43c2-b315-5f704ed47825
+  instanceId: 7b5b81ee-267c-4e26-ba2a-e725a77aaa68
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: f8338144-8280-4ff6-9455-ae2bb9c20fe8
@@ -276,6 +331,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8344815089877520198}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2306505815622015892}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
@@ -352,8 +411,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2181733, y: 0.34984022, z: 1.1555923}
-  m_Center: {x: 0.011168093, y: 0.17175189, z: -0.07779634}
+  m_Size: {x: 0.16279967, y: 0.23257828, z: 0.9829569}
+  m_Center: {x: 0.0030249134, y: 0.18478107, z: -0.05010961}
 --- !u!114 &2821128015407643116
 MonoBehaviour:
   m_ObjectHideFlags: 0
