@@ -430,7 +430,10 @@ public class FishAI : MonoBehaviour
         {
             if (debugTimerLogging)
                 Debug.Log($"Forced release after {maxGrabTime}s", this);
+            float vol = audioSource.volume;
+            audioSource.volume = 1.0f;
             audioSource.PlayOneShot(flee);
+            audioSource.volume = vol;
             ForceRelease();
         }
     }
@@ -838,7 +841,11 @@ public class FishAI : MonoBehaviour
     // State Transitions
     void TransitionToIdle()
     {
-        if (audioSource.clip == struggle) audioSource.clip = swim;
+        if (audioSource.clip == struggle){
+            audioSource.clip = swim;
+            audioSource.volume = 0.2f;
+        audioSource.Play();
+        } 
         currentState = FishState.Idle;
         fleeDirection = Vector3.zero;
         targetSpeed = baseOrbitSpeed + Random.Range(-speedVariationRange * 0.3f, speedVariationRange * 0.3f);
@@ -857,12 +864,18 @@ public class FishAI : MonoBehaviour
     {
         currentState = FishState.Grabbed;
         audioSource.clip = struggle;
+        audioSource.volume = 1.0f;
+        audioSource.Play();
         wasGrabbed = true;
     }
 
     void TransitionToRecovering()
     {
-        if (audioSource.clip == struggle) audioSource.clip = swim;
+        if (audioSource.clip == struggle){
+            audioSource.clip = swim;
+            audioSource.volume = 0.2f;
+            audioSource.Play();
+        } 
         currentState = FishState.Recovering;
         recoveryStartPos = transform.position;
         recoveryProgress = 0f;

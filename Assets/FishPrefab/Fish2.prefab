@@ -222,17 +222,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761a6db3c32b24b90833cd217671962e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 0}
   audioSource: {fileID: 3218306071907778594}
   success: {fileID: 8300000, guid: 28a95bafa4df84d98ac06e94314a1e94, type: 3}
   struggle: {fileID: 8300000, guid: 6fcd3dfb2e2ee471c8d6973c504eb350, type: 3}
@@ -447,20 +448,20 @@ MonoBehaviour:
   heightVariationRange: 0.2
   heightChangeRate: 0.2
   heightChangeFrequency: 0.3
-  minHeightChangeInterval: 0.8
+  minHeightChangeInterval: 0.5
   enableWaveMovement: 1
   waveFrequency: 0.8
-  waveAmplitude: 0.03
-  detectionDistance: 2
-  safeDistance: 2
+  waveAmplitude: 0.008
+  detectionDistance: 0.5
+  safeDistance: 0.5
   playerLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  fleeForce: 2
+  fleeForce: 1
   recoverySpeed: 4
   rotationSpeed: 180
-  fleeSpeedMultiplier: 3
-  maxFleeDistance: 7
+  fleeSpeedMultiplier: 1
+  maxFleeDistance: 2
   catchTimeout: 6
   releaseTimeout: 30
   maxGrabTime: 3
@@ -492,7 +493,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
