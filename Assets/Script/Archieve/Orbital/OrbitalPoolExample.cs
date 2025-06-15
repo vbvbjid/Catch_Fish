@@ -16,17 +16,19 @@ public class OrbitalPoolExample : MonoBehaviour
         if (objectPool == null)
         {
             objectPool = FindObjectOfType<OrbitalObjectPool>();
-            
+
             // If still not found, add it to this GameObject
             if (objectPool == null && orbitalPrefab != null)
             {
                 objectPool = gameObject.AddComponent<OrbitalObjectPool>();
-                
+
                 // Get the OrbitalObjectPool component via reflection and set the prefab
+#if UNITY_EDITOR
                 var serializedObject = new UnityEditor.SerializedObject(objectPool);
                 var prefabProperty = serializedObject.FindProperty("orbitalObjectPrefab");
                 prefabProperty.objectReferenceValue = orbitalPrefab;
                 serializedObject.ApplyModifiedProperties();
+#endif
             }
         }
         

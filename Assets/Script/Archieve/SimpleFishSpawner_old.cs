@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleFishSpawner : MonoBehaviour
+public class SimpleFishSpawner_old : MonoBehaviour
 {
     [Header("Fish Spawning")]
     public GameObject fishPrefab;
@@ -382,7 +382,7 @@ public class SimpleFishSpawner : MonoBehaviour
         newFish.SetActive(true);
 
         // Configure the FishAI component
-        FishAI fishAI = newFish.GetComponent<FishAI>();
+        FishAI_old fishAI = newFish.GetComponent<FishAI_old>();
         if (fishAI != null)
         {
             // Set spawner reference for pool management

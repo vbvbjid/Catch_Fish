@@ -355,7 +355,31 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4130594248890378174}
+      addedObject: {fileID: -1284221699038924994}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7185439809505385628}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5665029736918116862}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1534909699940759829}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7644741470327558567}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8836981839884687921}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2382109952579891295}
   m_SourcePrefab: {fileID: 100100000, guid: 0b04b4ee27b36df4c94e4df3ea384a9f, type: 3}
 --- !u!4 &6243967936179992884 stripped
 Transform:
@@ -524,10 +548,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -609,7 +633,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4130594248890378174
+--- !u!114 &-1284221699038924994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -618,55 +642,134 @@ MonoBehaviour:
   m_GameObject: {fileID: 6768021203490677646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761a6db3c32b24b90833cd217671962e, type: 3}
+  m_Script: {fileID: 11500000, guid: c9ab2cec0cbf249c587123a7107a25ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
+  spawner: {fileID: 0}
+  showDebugGizmos: 0
+--- !u!114 &7185439809505385628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a491dbbf601384cedad1ea3c29c27e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   audioSource: {fileID: 3404976096053954175}
   success: {fileID: 8300000, guid: 28a95bafa4df84d98ac06e94314a1e94, type: 3}
   struggle: {fileID: 8300000, guid: 6fcd3dfb2e2ee471c8d6973c504eb350, type: 3}
   flee: {fileID: 8300000, guid: f98b433cd8d6d41698bf54c27c9d6650, type: 3}
   swim: {fileID: 8300000, guid: 8fb7e134819de486c9361ebdfc2a2fe3, type: 3}
-  orbitCenter: {x: 0, y: 1.4, z: 0}
-  orbitRadius: 1
-  baseOrbitSpeed: 50
-  speedVariationRange: 100
-  speedChangeRate: 1
-  minSpeed: 30
-  maxSpeed: 80
-  enableVerticalMovement: 0
-  baseHeight: 0
-  heightVariationRange: 2
-  heightChangeRate: 0.5
-  heightChangeFrequency: 0.3
-  minHeightChangeInterval: 2
-  enableWaveMovement: 0
-  waveFrequency: 0.8
-  waveAmplitude: 0.3
-  detectionDistance: 0.2
-  safeDistance: 0.4
+  swimVolume: 0.2
+  struggleVolume: 2
+  fleeVolume: 10
+--- !u!114 &-5665029736918116862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f487fe389d3b1449c9c8a0115a6fac0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionDistance: 0
+  safeDistance: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 4294967295
   fleeForce: 2
-  recoverySpeed: 2
-  rotationSpeed: 90
-  fleeSpeedMultiplier: 1.5
-  maxFleeDistance: 3
-  catchTimeout: 3
-  releaseTimeout: 5
-  maxGrabTime: 3
-  disableColliderDuration: 3
-  showDebugGizmos: 1
+  maxFleeDistance: 1.5
   enableFlee: 0
+--- !u!114 &-1534909699940759829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b228594872c5240aebdb97cc78a6d3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  catchTimeout: 3
+  releaseTimeout: 30
+  maxGrabTime: 3
+  disableColliderDuration: 2
   debugTimerLogging: 0
-  debugVerticalMovement: 0
-  grabbable: {fileID: 0}
-  grabInteractable: {fileID: 0}
-  grabbableTimer: {fileID: 0}
+  grabbable: {fileID: 69870286528540659}
+  grabInteractable: {fileID: 6319206120938091918}
+  grabbableTimer: {fileID: 6807908387218126911}
   animator: {fileID: 0}
-  grabCollider: {fileID: 0}
-  spawner: {fileID: 0}
-  currentState: 0
-  currentAngle: 0
+--- !u!114 &-7644741470327558567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595817497b6404d2493237000dee9946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitCenter: {x: 0, y: 0, z: 0}
+  orbitRadius: 3
+  baseOrbitSpeed: 30
+  speedVariationRange: 3
+  speedChangeRate: 0.8
+  minSpeed: 10
+  maxSpeed: 80
+  rotationSpeed: 90
+  fleeSpeedMultiplier: 2.2
+  recoverySpeed: 2
   currentSpeed: 0
+--- !u!114 &8836981839884687921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7952b2b190ed475095bd8a813b38fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+--- !u!114 &-2382109952579891295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30986673b03e74c77839588c7f80d4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableVerticalMovement: 1
+  baseHeight: 0
+  enableWaveMovement: 1
+  fixedAmplitude: 0.2
+  fixedSpeed: 1
+  randomizeAmplitude: 1
+  minAmplitude: 0.05
+  maxAmplitude: 0.2
+  randomizeSpeed: 1
+  minSpeed: 0.5
+  maxSpeed: 2
+  heightVariationRange: 0.2
+  heightChangeRate: 0.5
+  heightChangeFrequency: 0.3
+  minHeightChangeInterval: 2
+  debugVerticalMovement: 0

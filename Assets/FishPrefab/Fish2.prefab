@@ -298,7 +298,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 32de6eb1fbb9848548ced63db5719110, type: 2}
+      objectReference: {fileID: 2100000, guid: 9217f5edb95494eb1bedcfc7610fa21b, type: 2}
     - target: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
       propertyPath: m_Name
@@ -352,11 +352,35 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4130594248890378174}
+      addedObject: {fileID: 3218306071907778594}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3218306071907778594}
+      addedObject: {fileID: 6978589222237838044}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7728208728433107333}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3156852466890900097}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1992017279733720203}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 173626267474816400}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 843645742963030244}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3242816205930796405}
   m_SourcePrefab: {fileID: 100100000, guid: 0b04b4ee27b36df4c94e4df3ea384a9f, type: 3}
 --- !u!4 &6243967936179992884 stripped
 Transform:
@@ -418,67 +442,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.16279967, y: 0.23257828, z: 0.9829569}
   m_Center: {x: 0.0030249134, y: 0.18478107, z: -0.05010961}
---- !u!114 &4130594248890378174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6768021203490677646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761a6db3c32b24b90833cd217671962e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gm: {fileID: 0}
-  audioSource: {fileID: 3218306071907778594}
-  success: {fileID: 8300000, guid: 28a95bafa4df84d98ac06e94314a1e94, type: 3}
-  struggle: {fileID: 8300000, guid: 6fcd3dfb2e2ee471c8d6973c504eb350, type: 3}
-  flee: {fileID: 8300000, guid: f98b433cd8d6d41698bf54c27c9d6650, type: 3}
-  swim: {fileID: 8300000, guid: 8fb7e134819de486c9361ebdfc2a2fe3, type: 3}
-  orbitCenter: {x: 0, y: 1.4, z: 0}
-  orbitRadius: 3
-  baseOrbitSpeed: 75
-  speedVariationRange: 100
-  speedChangeRate: 1
-  minSpeed: 50
-  maxSpeed: 100
-  enableVerticalMovement: 1
-  baseHeight: 0
-  heightVariationRange: 0.2
-  heightChangeRate: 0.2
-  heightChangeFrequency: 0.3
-  minHeightChangeInterval: 0.5
-  enableWaveMovement: 1
-  waveFrequency: 0.8
-  waveAmplitude: 0.008
-  detectionDistance: 0.5
-  safeDistance: 0.5
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  fleeForce: 1
-  recoverySpeed: 4
-  rotationSpeed: 180
-  fleeSpeedMultiplier: 1
-  maxFleeDistance: 2
-  catchTimeout: 6
-  releaseTimeout: 30
-  maxGrabTime: 3
-  disableColliderDuration: 3
-  showDebugGizmos: 1
-  enableFlee: 1
-  debugTimerLogging: 0
-  debugVerticalMovement: 0
-  grabbable: {fileID: 0}
-  grabInteractable: {fileID: 0}
-  grabbableTimer: {fileID: 0}
-  animator: {fileID: 0}
-  grabCollider: {fileID: 0}
-  spawner: {fileID: 0}
-  currentState: 0
-  currentAngle: 0
-  currentSpeed: 0
 --- !u!82 &3218306071907778594
 AudioSource:
   m_ObjectHideFlags: 0
@@ -575,3 +538,143 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6978589222237838044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9ab2cec0cbf249c587123a7107a25ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gm: {fileID: 0}
+  spawner: {fileID: 0}
+  showDebugGizmos: 1
+--- !u!114 &7728208728433107333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a491dbbf601384cedad1ea3c29c27e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  success: {fileID: 0}
+  struggle: {fileID: 0}
+  flee: {fileID: 0}
+  swim: {fileID: 0}
+  swimVolume: 0.2
+  struggleVolume: 2
+  fleeVolume: 10
+--- !u!114 &3156852466890900097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f487fe389d3b1449c9c8a0115a6fac0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionDistance: 0.2
+  safeDistance: 0.4
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  fleeForce: 2
+  maxFleeDistance: 1.5
+  enableFlee: 1
+--- !u!114 &1992017279733720203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b228594872c5240aebdb97cc78a6d3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  catchTimeout: 6
+  releaseTimeout: 30
+  maxGrabTime: 3
+  disableColliderDuration: 2
+  debugTimerLogging: 0
+  grabbable: {fileID: 0}
+  grabInteractable: {fileID: 0}
+  grabbableTimer: {fileID: 0}
+  animator: {fileID: 0}
+--- !u!114 &173626267474816400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595817497b6404d2493237000dee9946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitCenter: {x: 0, y: 0, z: 0}
+  orbitRadius: 3
+  baseOrbitSpeed: 65
+  speedVariationRange: 5
+  speedChangeRate: 2
+  minSpeed: 50
+  maxSpeed: 80
+  rotationSpeed: 90
+  fleeSpeedMultiplier: 2.2
+  recoverySpeed: 2
+  currentSpeed: 0
+--- !u!114 &843645742963030244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7952b2b190ed475095bd8a813b38fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+--- !u!114 &3242816205930796405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768021203490677646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30986673b03e74c77839588c7f80d4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableVerticalMovement: 1
+  baseHeight: 0
+  enableWaveMovement: 1
+  fixedAmplitude: 0.4
+  fixedSpeed: 1
+  randomizeAmplitude: 1
+  minAmplitude: 0.1
+  maxAmplitude: 0.4
+  randomizeSpeed: 1
+  minSpeed: 1
+  maxSpeed: 4
+  heightVariationRange: 2
+  heightChangeRate: 0.5
+  heightChangeFrequency: 0.3
+  minHeightChangeInterval: 2
+  debugVerticalMovement: 0

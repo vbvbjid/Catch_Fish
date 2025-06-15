@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Oculus.Interaction;
-
-public class FishAI : MonoBehaviour
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+public class FishAI_old : MonoBehaviour
 {
     public GameManager gm;
     [Header("Audio Settings")]
@@ -85,7 +87,7 @@ public class FishAI : MonoBehaviour
 
     [Header("Spawner Reference")]
     [Tooltip("Reference to the spawner that created this fish (auto-assigned)")]
-    public SimpleFishSpawner spawner;
+    public SimpleFishSpawner_old spawner;
 
     // States
     public enum FishState { Idle, Fleeing, Grabbed, Recovering }
@@ -224,7 +226,7 @@ public class FishAI : MonoBehaviour
 
         // Get pool reference (check both new and old systems)
         if (spawner == null)
-            spawner = GetComponentInParent<SimpleFishSpawner>();
+            spawner = GetComponentInParent<SimpleFishSpawner_old>();
 
         // Validate required components and log where they were found
         if (grabbable == null)
@@ -374,7 +376,7 @@ public class FishAI : MonoBehaviour
         if (debugVerticalMovement)
             Debug.Log($"Changed target height to: {targetHeight:F2} (Base: {baseHeight})", this);
     }
-
+    private bool catched = false;
     void HandleGrabInteraction()
     {
         if (grabbable == null) return;
@@ -383,13 +385,14 @@ public class FishAI : MonoBehaviour
 
         // Check for successful catch
         if (AccumulatedGrabTime >= catchTimeout)
-        {
+        {   
             if (debugTimerLogging)
                 Debug.Log($"Fish caught! Accumulated grab time: {AccumulatedGrabTime}s >= {catchTimeout}s", this);
-            audioSource.Stop();
-            audioSource.PlayOneShot(success);
-            gm.CatchFish();
+            
+            catched = true;
+            AudioSource.PlayClipAtPoint(success, transform.position);
             CatchFish();
+            gm.CatchFish();
             return;
         }
 
@@ -430,10 +433,7 @@ public class FishAI : MonoBehaviour
         {
             if (debugTimerLogging)
                 Debug.Log($"Forced release after {maxGrabTime}s", this);
-            float vol = audioSource.volume;
-            audioSource.volume = 1.0f;
-            audioSource.PlayOneShot(flee);
-            audioSource.volume = vol;
+            audioSource.PlayOneShot(flee, 10.0f);
             ForceRelease();
         }
     }
@@ -686,14 +686,12 @@ public class FishAI : MonoBehaviour
         if (debugTimerLogging)
             Debug.Log("Fish successfully caught!", this);
 
-        // Try new spawner system first, then fall back to old pool system
         if (spawner != null)
         {
             spawner.ReturnFishToPool(gameObject);
         }
         else
         {
-            // Fallback if no pool available
             if (debugTimerLogging)
                 Debug.Log("No pool system found, deactivating fish", this);
             gameObject.SetActive(false);
@@ -841,11 +839,12 @@ public class FishAI : MonoBehaviour
     // State Transitions
     void TransitionToIdle()
     {
-        if (audioSource.clip == struggle){
+        if (audioSource.clip == struggle)
+        {
             audioSource.clip = swim;
             audioSource.volume = 0.2f;
-        audioSource.Play();
-        } 
+            audioSource.Play();
+        }
         currentState = FishState.Idle;
         fleeDirection = Vector3.zero;
         targetSpeed = baseOrbitSpeed + Random.Range(-speedVariationRange * 0.3f, speedVariationRange * 0.3f);
@@ -864,24 +863,25 @@ public class FishAI : MonoBehaviour
     {
         currentState = FishState.Grabbed;
         audioSource.clip = struggle;
-        audioSource.volume = 1.0f;
+        audioSource.volume = 2.0f;
         audioSource.Play();
         wasGrabbed = true;
     }
 
     void TransitionToRecovering()
     {
-        if (audioSource.clip == struggle){
+        if (audioSource.clip == struggle)
+        {
             audioSource.clip = swim;
             audioSource.volume = 0.2f;
             audioSource.Play();
-        } 
+        }
         currentState = FishState.Recovering;
         recoveryStartPos = transform.position;
         recoveryProgress = 0f;
     }
-
-    // Debug Gizmos
+#if UNITY_EDITOR
+    //Debug Gizmos
     void OnDrawGizmos()
     {
         if (!showDebugGizmos) return;
@@ -963,4 +963,5 @@ public class FishAI : MonoBehaviour
             prevPoint = currentPoint;
         }
     }
+#endif
 }
