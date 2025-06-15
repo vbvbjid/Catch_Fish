@@ -13764,7 +13764,7 @@ MonoBehaviour:
   maxCenterY: 2
   minYSeparation: 0.6
   minRadius: 1.5
-  maxRadius: 3
+  maxRadius: 2
   minRadiusSeparation: 0.6
   minAngleSeparation: 30
   randomizeAngles: 1
@@ -20737,8 +20737,8 @@ MonoBehaviour:
   minCenterY: 0.4
   maxCenterY: 2
   minYSeparation: 0.4
-  minRadius: 1.5
-  maxRadius: 3
+  minRadius: 1
+  maxRadius: 2
   minRadiusSeparation: 0.4
   minAngleSeparation: 30
   randomizeAngles: 1
@@ -20862,7 +20862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enablePooling: 1
-  fixedPoolSize: 1
+  fixedPoolSize: 50
   respawnDelay: 5
   debugPooling: 0
 --- !u!114 &1797215383
@@ -20880,8 +20880,8 @@ MonoBehaviour:
   minCenterY: 0.4
   maxCenterY: 2
   minYSeparation: 0.2
-  minRadius: 1
-  maxRadius: 2
+  minRadius: 0.5
+  maxRadius: 1
   minRadiusSeparation: 0.2
   minAngleSeparation: 30
   randomizeAngles: 1

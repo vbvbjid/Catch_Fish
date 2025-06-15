@@ -585,8 +585,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f487fe389d3b1449c9c8a0115a6fac0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionDistance: 0.2
-  safeDistance: 0.4
+  detectionDistance: 0.4
+  safeDistance: 0.6
   playerLayer:
     serializedVersion: 2
     m_Bits: 4294967295

@@ -71,11 +71,7 @@ public class SpawnerFishFactory : MonoBehaviour
         // IMPORTANT: Reset fish position and rotation BEFORE configuring AI
         Vector3 oldPosition = fish.transform.position;
         fish.transform.position = initialPosition;
-        
-        if (fishAI != null && fishAI.CurrentState == FishStateMachine.FishState.Recovering)
-        {
-            Debug.LogError($"[SPAWN DEBUG] FORCED POSITION CHANGE during recovery! Fish '{fish.name}' moved from {oldPosition} to {initialPosition}", this);
-        }
+       
         
         // Calculate correct rotation based on orbital movement direction
         SetCorrectRotation(fish, parameters.initialAngle);
@@ -102,11 +98,6 @@ public class SpawnerFishFactory : MonoBehaviour
 
     private void ConfigureFishAI(FishAI fishAI, FishSpawnParameters parameters)
     {
-        // Check recovery state before configuration
-        if (fishAI.CurrentState == FishStateMachine.FishState.Recovering)
-        {
-            Debug.LogError($"[SPAWN DEBUG] ConfigureFishAI called on recovering fish '{fishAI.name}'! This will break recovery.", this);
-        }
 
         // Set spawner reference for pool management
         SimpleFishSpawner spawner = GetComponentInParent<SimpleFishSpawner>();
