@@ -34,10 +34,10 @@ public class FishGrabHandler : MonoBehaviour
     private float grabStartTime = 0f;
 
     // Events
-    public System.Action OnFishCaught;
-    public System.Action OnFishGrabbed;
-    public System.Action OnFishReleased;
-    public System.Action OnFishForceReleased;
+    public event System.Action OnFishCaught;
+    public event System.Action OnFishGrabbed;
+    public event System.Action OnFishReleased;
+    public event System.Action OnFishForceReleased;
 
     public float AccumulatedGrabTime => grabbableTimer != null ? grabbableTimer.AccumulatedGrabTime : 0f;
     public float TimeSinceLastRelease => grabbableTimer != null ? grabbableTimer.TimeSinceLastRelease : 0f;

@@ -12,11 +12,11 @@ public class FishStateMachine : MonoBehaviour
     private float recoveryProgress = 0f;
 
     // State change events
-    public System.Action OnEnterIdle;
-    public System.Action OnEnterFleeing;
-    public System.Action OnEnterGrabbed;
-    public System.Action OnEnterRecovering;
-    public System.Action OnExitState;
+    public event System.Action OnEnterIdle;
+    public event System.Action OnEnterFleeing;
+    public event System.Action OnEnterGrabbed;
+    public event System.Action OnEnterRecovering;
+    //public event System.Action OnExitState;
 
     public FishState CurrentState => currentState;
     public float RecoveryProgress => recoveryProgress;
@@ -26,7 +26,7 @@ public class FishStateMachine : MonoBehaviour
     {
         if (currentState == FishState.Idle) return;
         
-        OnExitState?.Invoke();
+        //OnExitState?.Invoke();
         currentState = FishState.Idle;
         OnEnterIdle?.Invoke();
     }
@@ -35,7 +35,7 @@ public class FishStateMachine : MonoBehaviour
     {
         if (currentState == FishState.Fleeing) return;
         
-        OnExitState?.Invoke();
+        //OnExitState?.Invoke();
         currentState = FishState.Fleeing;
         OnEnterFleeing?.Invoke();
     }
@@ -44,7 +44,7 @@ public class FishStateMachine : MonoBehaviour
     {
         if (currentState == FishState.Grabbed) return;
         
-        OnExitState?.Invoke();
+        //OnExitState?.Invoke();
         currentState = FishState.Grabbed;
         OnEnterGrabbed?.Invoke();
     }
@@ -53,7 +53,7 @@ public class FishStateMachine : MonoBehaviour
     {
         if (currentState == FishState.Recovering) return;
         
-        OnExitState?.Invoke();
+        //OnExitState?.Invoke();
         recoveryStartPos = transform.position;
         recoveryProgress = 0f;
         currentState = FishState.Recovering;

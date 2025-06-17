@@ -27,10 +27,10 @@ public class FishAI : MonoBehaviour
 
         // Initialize all components
         InitializeComponents();
-        
+
         // Set up event subscriptions
         SetupEventSubscriptions();
-        
+
         // Initialize fish
         InitializeFish();
     }
@@ -41,7 +41,7 @@ public class FishAI : MonoBehaviour
         if (verticalMovement != null)
         {
             verticalMovement.UpdateVerticalMovement(Time.deltaTime);
-            
+
             // Update movement component's orbit center with new height
             if (fishMovement != null)
             {
@@ -174,7 +174,7 @@ public class FishAI : MonoBehaviour
         if (fleeBehavior != null)
         {
             fleeBehavior.UpdateFleeDirection(Time.deltaTime);
-            
+
             // Update flee movement
             if (fishMovement != null)
             {
@@ -211,7 +211,7 @@ public class FishAI : MonoBehaviour
         if (stateMachine != null && fishMovement != null)
         {
             stateMachine.UpdateRecoveryProgress(Time.deltaTime, fishMovement.recoverySpeed);
-            
+
             fishMovement.UpdateRecoveryMovement(
                 Time.deltaTime,
                 stateMachine.RecoveryStartPos,
@@ -229,10 +229,10 @@ public class FishAI : MonoBehaviour
     private void HandleFishCaught()
     {
         fishCaught = true;
-        
+
         if (audioManager != null)
             audioManager.PlaySuccessSound();
-            
+
         if (gm != null)
             gm.CatchFish();
 
@@ -254,7 +254,7 @@ public class FishAI : MonoBehaviour
             {
                 fishMovement.SetCurrentPosition(transform.position);
             }
-            
+
             stateMachine?.TransitionToRecovering();
         }
     }
@@ -263,7 +263,7 @@ public class FishAI : MonoBehaviour
     {
         if (audioManager != null)
             audioManager.PlayFleeSound();
-            
+
         stateMachine?.TransitionToRecovering();
     }
 
@@ -271,12 +271,12 @@ public class FishAI : MonoBehaviour
     {
         if (audioManager != null)
             audioManager.SwitchFromStruggleToSwim();
-            
+
         if (fishMovement != null)
         {
             fishMovement.ResetSpeed();
         }
-        
+
         if (fleeBehavior != null)
         {
             fleeBehavior.ResetFleeDirection();
@@ -301,7 +301,7 @@ public class FishAI : MonoBehaviour
     {
         if (audioManager != null)
             audioManager.SwitchFromStruggleToSwim();
-            
+
         // Make sure the fish starts recovery from its actual current position
         if (fishMovement != null)
         {
@@ -316,7 +316,7 @@ public class FishAI : MonoBehaviour
         {
             fishMovement.SetOrbitCenter(newOrbitCenter);
         }
-        
+
         if (verticalMovement != null)
         {
             verticalMovement.SetBaseHeight(newOrbitCenter.y);
@@ -326,17 +326,13 @@ public class FishAI : MonoBehaviour
     public void ResetFishState()
     {
         fishCaught = false;
-        
+
         // Reset all components
         stateMachine?.ResetState();
         grabHandler?.ResetGrabState();
         fleeBehavior?.ResetFleeDirection();
         verticalMovement?.ResetVerticalMovement();
-        
-        if (fishMovement != null)
-        {
-            fishMovement.ResetSpeed();
-        }
+        fishMovement?.ResetSpeed();
     }
 
     public void ForcePositionUpdate()
@@ -358,38 +354,63 @@ public class FishAI : MonoBehaviour
     }
 
     // Properties for external access
+    /*
+        public float CurrentAngle
+        {
+            get
+            {
+                return fishMovement?.CurrentAngle ?? 0f;
+            }
+        }
+    */
     public float CurrentAngle => fishMovement?.CurrentAngle ?? 0f;
     public float AccumulatedGrabTime => grabHandler?.AccumulatedGrabTime ?? 0f;
     public float TimeSinceLastRelease => grabHandler?.TimeSinceLastRelease ?? 0f;
     public FishStateMachine.FishState CurrentState => stateMachine?.CurrentState ?? FishStateMachine.FishState.Idle;
 
     // Expose orbit center for spawner compatibility
-    public Vector3 orbitCenter 
-    { 
+    public Vector3 orbitCenter
+    {
+        /*
+            get
+            {
+                return fishMovement?.orbitCenter ?? Vector3.zero;
+            }
+        */
+        // usage: x = orbitCenter 
+        /*
+            if(fishMovement != null)
+            {
+                if(fishMovement.orbitCenter != null) x = fishMovement.orbitCenter;
+                else x = Vector3.zero;
+            }
+        */
         get => fishMovement?.orbitCenter ?? Vector3.zero;
-        set 
+        // usage orbitCenter = x
+        // if (fishMovement != null) fishMovement.orbitCenter = x;
+        set
         {
             if (fishMovement != null)
                 fishMovement.orbitCenter = value;
         }
     }
-    
-    public float orbitRadius 
-    { 
+
+    public float orbitRadius
+    {
         get => fishMovement?.orbitRadius ?? 0f;
-        set 
+        set
         {
             if (fishMovement != null)
                 fishMovement.orbitRadius = value;
         }
     }
-    
+
     public float baseOrbitSpeed => fishMovement?.baseOrbitSpeed ?? 0f;
     public float minSpeed => fishMovement?.minSpeed ?? 0f;
-    public float currentSpeed 
-    { 
+    public float currentSpeed
+    {
         get => fishMovement?.currentSpeed ?? 0f;
-        set 
+        set
         {
             if (fishMovement != null)
                 fishMovement.currentSpeed = value;
@@ -417,12 +438,12 @@ public class FishAI : MonoBehaviour
             Vector3 baseCenter = new Vector3(fishMovement.orbitCenter.x, verticalMovement.BaseHeight, fishMovement.orbitCenter.z);
             Vector3 heightRangeBottom = new Vector3(baseCenter.x, verticalMovement.BaseHeight - verticalMovement.maxAmplitude, baseCenter.z);
             Vector3 heightRangeTop = new Vector3(baseCenter.x, verticalMovement.BaseHeight + verticalMovement.maxAmplitude, baseCenter.z);
-            
+
             // Draw max amplitude constraint bounds
             Gizmos.DrawWireCube(heightRangeBottom, new Vector3(fishMovement.orbitRadius * 2, 0.05f, fishMovement.orbitRadius * 2));
             Gizmos.DrawWireCube(heightRangeTop, new Vector3(fishMovement.orbitRadius * 2, 0.05f, fishMovement.orbitRadius * 2));
             Gizmos.DrawLine(heightRangeBottom, heightRangeTop);
-            
+
             // Draw current height
             Gizmos.color = Color.yellow;
             Vector3 currentHeightCenter = new Vector3(baseCenter.x, verticalMovement.CurrentHeight, baseCenter.z);
