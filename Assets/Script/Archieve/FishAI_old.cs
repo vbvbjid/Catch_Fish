@@ -376,7 +376,7 @@ public class FishAI_old : MonoBehaviour
         if (debugVerticalMovement)
             Debug.Log($"Changed target height to: {targetHeight:F2} (Base: {baseHeight})", this);
     }
-    private bool catched = false;
+    //private bool catched = false;
     void HandleGrabInteraction()
     {
         if (grabbable == null) return;
@@ -389,7 +389,7 @@ public class FishAI_old : MonoBehaviour
             if (debugTimerLogging)
                 Debug.Log($"Fish caught! Accumulated grab time: {AccumulatedGrabTime}s >= {catchTimeout}s", this);
             
-            catched = true;
+            //catched = true;
             AudioSource.PlayClipAtPoint(success, transform.position);
             CatchFish();
             gm.CatchFish();

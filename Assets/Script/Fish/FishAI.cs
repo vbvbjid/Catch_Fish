@@ -16,8 +16,9 @@ public class FishAI : MonoBehaviour
     private FishGrabHandler grabHandler;
     private FishAudioManager audioManager;
     private FishStateMachine stateMachine;
+    private FishVisualEffect fishVisualEffect;
 
-    private bool fishCaught = false;
+    //private bool fishCaught = false;
 
     void Start()
     {
@@ -90,6 +91,9 @@ public class FishAI : MonoBehaviour
 
         stateMachine = GetComponent<FishStateMachine>();
         if (stateMachine == null) stateMachine = gameObject.AddComponent<FishStateMachine>();
+
+        fishVisualEffect = GetComponent<FishVisualEffect>();
+        if (fishVisualEffect == null) fishVisualEffect = gameObject.AddComponent<FishVisualEffect>();
 
         // Get spawner reference if not assigned
         if (spawner == null)
@@ -226,17 +230,26 @@ public class FishAI : MonoBehaviour
     }
 
     // Event Handlers
-    private void HandleFishCaught()
+    private async void HandleFishCaught()
     {
-        fishCaught = true;
+        //fishCaught = true;
 
         if (audioManager != null)
             audioManager.PlaySuccessSound();
 
-        if (gm != null)
-            gm.CatchFish();
-
-        CatchFish();
+        if (fishVisualEffect != null)
+        {
+            await fishVisualEffect.DissoveEffect();
+            if (gm != null)
+                gm.CatchFish();
+            CatchFish();
+        }
+        else
+        {
+            if (gm != null)
+                gm.CatchFish();
+            CatchFish();
+        }
     }
 
     private void HandleFishGrabbed()
@@ -325,7 +338,7 @@ public class FishAI : MonoBehaviour
 
     public void ResetFishState()
     {
-        fishCaught = false;
+        //fishCaught = false;
 
         // Reset all components
         stateMachine?.ResetState();
@@ -345,6 +358,7 @@ public class FishAI : MonoBehaviour
         if (spawner != null)
         {
             spawner.ReturnFishToPool(gameObject);
+            fishVisualEffect.RestoreMaterial();
         }
         else
         {
