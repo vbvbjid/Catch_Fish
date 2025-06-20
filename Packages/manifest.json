@@ -1,7 +1,8 @@
 {
   "dependencies": {
+    "com.meta.movement": "https://github.com/oculus-samples/Unity-Movement.git#v71.0.0",
     "com.meta.xr.sdk.all": "71.0.0",
-    "com.meta.xr.sdk.movement": "https://github.com/oculus-samples/Unity-Movement.git",
+    "com.meta.xr.sdk.interaction.ovr": "71.0.0",
     "com.unity.collab-proxy": "2.8.2",
     "com.unity.ide.rider": "3.0.36",
     "com.unity.ide.visualstudio": "2.0.22",
@@ -15,7 +16,7 @@
     "com.unity.visualeffectgraph": "14.0.12",
     "com.unity.visualscripting": "1.9.4",
     "com.unity.xr.management": "4.5.1",
-    "com.unity.xr.openxr": "1.14.3",
+    "com.unity.xr.oculus": "4.5.1",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
