@@ -43,6 +43,7 @@ public class FishGrabHandler : MonoBehaviour
     public float TimeSinceLastRelease => grabbableTimer != null ? grabbableTimer.TimeSinceLastRelease : 0f;
     public bool IsCurrentlyGrabbed => grabbable != null && grabbable.SelectingPointsCount > 0;
     public bool WasGrabbed => wasGrabbed;
+    private bool isCatched = false;
 
     void Start()
     {
@@ -85,6 +86,7 @@ public class FishGrabHandler : MonoBehaviour
 
     private void InitializeComponents()
     {
+        isCatched = false;
         // Use assigned references if available, otherwise search for components
         if (grabbable == null)
         {
@@ -138,6 +140,10 @@ public class FishGrabHandler : MonoBehaviour
             Debug.Log($"Found GrabInteractable component on: {grabInteractable.gameObject.name}", this);
         }
     }
+    public void ResetIsCaught()
+    {
+        isCatched = false;
+    }
 
     private void HandleGrabInteraction()
     {
@@ -148,9 +154,10 @@ public class FishGrabHandler : MonoBehaviour
         // Check for successful catch
         if (AccumulatedGrabTime >= catchTimeout)
         {
+            if (isCatched) return;
+            isCatched = true;
             if (debugTimerLogging)
                 Debug.Log($"Fish caught! Accumulated grab time: {AccumulatedGrabTime}s >= {catchTimeout}s", this);
-
             OnFishCaught?.Invoke();
             return;
         }

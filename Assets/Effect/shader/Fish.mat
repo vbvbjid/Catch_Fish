@@ -140,7 +140,7 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 0
     - _marginScale: 0.07
-    - _scale: 40
+    - _scale: 50
     - _threshold: 0
     m_Colors:
     - _BaseColor: {r: 0, g: 0.70077515, b: 1, a: 1}

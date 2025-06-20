@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class FishVisualEffect : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class FishVisualEffect : MonoBehaviour
     public VisualEffect VFXGraph;
     public float dissolveRate = 0.0125f;
     public float refreshRate = 0.025f;
+    public float dissolveDuration = 2.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,33 +22,26 @@ public class FishVisualEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("space");
-            //StartCoroutine(DissoveEffect());
-        }
+
     }
     public async Task DissoveEffect()
     {
         if (VFXGraph != null) VFXGraph.Play();
         if (skinnedMesh.materials.Length > 0)
         {
-            float timer = 0;
-            float counter = 0;
+            float CurrentThreshold = 0;
+            float startTime = Time.time;
+            //float endTime = startTime + dissolveDuration;
             while (materials[0].GetFloat("_threshold") < 1)
             {
-                Debug.Log("threshold =  " + materials[0].GetFloat("_threshold"));
-                counter += dissolveRate;
+                CurrentThreshold = (Time.time - startTime) / dissolveDuration;
+                CurrentThreshold = Mathf.Clamp01(CurrentThreshold);
                 for (int i = 0; i < materials.Length; i++)
                 {
-                    materials[i].SetFloat("_threshold", counter);
+                    materials[i].SetFloat("_threshold", CurrentThreshold); 
                 }
-                while (timer < refreshRate)
-                {
-                    timer += Time.deltaTime;
-                    await Task.Yield();
-                }
-                //yield return new WaitForSeconds(refreshRate);
+                Debug.Log("Dissolve Threshold = " + CurrentThreshold);
+                await Task.Yield();
             }
         }
     }

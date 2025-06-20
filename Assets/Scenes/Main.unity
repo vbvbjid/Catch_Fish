@@ -20826,7 +20826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enablePooling: 1
-  fixedPoolSize: 50
+  fixedPoolSize: 1
   respawnDelay: 5
   debugPooling: 0
 --- !u!114 &1797215383
