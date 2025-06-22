@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: f8766c17-aaf8-4b55-9431-de8deea83842
-  instanceId: 7b5b81ee-267c-4e26-ba2a-e725a77aaa68
+  instanceId: bee5fc6f-55a7-443a-ad3e-09c19b27bc47
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: f8338144-8280-4ff6-9455-ae2bb9c20fe8
@@ -168,7 +168,6 @@ GameObject:
   - component: {fileID: 2601057365770068430}
   - component: {fileID: 1695125466555018927}
   - component: {fileID: 2119454400765950867}
-  - component: {fileID: 7302793548121770794}
   m_Layer: 0
   m_Name: New VFX
   m_TagString: Untagged
@@ -212,21 +211,33 @@ VisualEffect:
       - m_Value: 2
         m_Name: Duration
         m_Overridden: 1
+      - m_Value: 15
+        m_Name: AttrackStrength
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: -0, z: 0}
+      - m_Value: {x: 0, y: 0, z: 0}
         m_Name: Transform_angles
-        m_Overridden: 1
+        m_Overridden: 0
       - m_Value: {x: 0, y: 0, z: 0}
         m_Name: Transform_position
         m_Overridden: 1
       - m_Value: {x: 1, y: 1, z: 1}
         m_Name: Transform_scale
         m_Overridden: 1
+      - m_Value: {x: 0, y: 4.983, z: 0}
+        m_Name: AttractTarget
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0.25, z: -0.75}
+        m_Name: OffSet
+        m_Overridden: 1
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 13.156611, y: 2.3462133, z: 0.93089217, w: 0}
+        m_Name: Color
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
@@ -239,7 +250,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 3934934943557926827}
+      - m_Value: {fileID: 0}
         m_Name: SkinMeshRenderer
         m_Overridden: 1
     m_Bool:
@@ -297,24 +308,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings:
-  - {fileID: 7302793548121770794}
+  m_Bindings: []
   m_VisualEffect: {fileID: 2601057365770068430}
---- !u!114 &7302793548121770794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8557467263164074683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Property:
-    m_Name: Position
-  Target: {fileID: 2845200118470690439}
 --- !u!1 &9105515961324228998
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,18 +548,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3884506177809122349}
   m_SourcePrefab: {fileID: 100100000, guid: 0b04b4ee27b36df4c94e4df3ea384a9f, type: 3}
---- !u!4 &2845200118470690439 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -697617235144157096, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
-    type: 3}
-  m_PrefabInstance: {fileID: 5849541209819881183}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &3934934943557926827 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -1750197354950549132, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
-    type: 3}
-  m_PrefabInstance: {fileID: 5849541209819881183}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6243967936179992884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
@@ -969,9 +952,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0578611e469ba4c6bbb98d44db2cce1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skinnedMesh: {fileID: 3934934943557926827}
+  skinnedMesh: {fileID: 0}
   materials: []
-  VFXGraph: {fileID: 2601057365770068430}
+  VFXGraph: {fileID: 0}
   dissolveRate: 0.0125
   refreshRate: 0.025
   dissolveDuration: 2

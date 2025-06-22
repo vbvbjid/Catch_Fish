@@ -143,6 +143,7 @@ public class FishGrabHandler : MonoBehaviour
     public void ResetIsCaught()
     {
         isCatched = false;
+        animator.SetBool("Dead", false);
     }
 
     private void HandleGrabInteraction()
@@ -158,6 +159,7 @@ public class FishGrabHandler : MonoBehaviour
             isCatched = true;
             if (debugTimerLogging)
                 Debug.Log($"Fish caught! Accumulated grab time: {AccumulatedGrabTime}s >= {catchTimeout}s", this);
+            animator.SetBool("Dead", true);
             OnFishCaught?.Invoke();
             return;
         }

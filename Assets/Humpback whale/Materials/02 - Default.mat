@@ -129,7 +129,7 @@ Material:
     - _ZWriteControl: 0
     - _marginScale: 0.2
     - _scale: 40
-    - _threshold: -0.22
+    - _threshold: -1.08
     m_Colors:
     - _BaseColor: {r: 0.25111246, g: 0.40128908, b: 0.5377358, a: 1}
     - _Color: {r: 0.25111243, g: 0.40128905, b: 0.53773576, a: 1}

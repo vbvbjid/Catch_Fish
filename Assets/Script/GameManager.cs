@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     [Header("Audio System")]
     public AudioSource audioSource;
     public AudioClip gameOverSound;
-    public AudioClip successSound;
     public List<AudioClip> levelAudioClips = new List<AudioClip>();
 
     [Header("Player & Life System")]
@@ -128,12 +127,6 @@ public class GameManager : MonoBehaviour
     public void CatchFish()
     {
         fishCount++;
-        
-        // Play success sound
-        if (audioSource != null && successSound != null)
-        {
-            audioSource.PlayOneShot(successSound, 2.0f);
-        }
 
         // Add life points based on current level and fish count
         AddLifePoints();
