@@ -168,8 +168,9 @@ GameObject:
   - component: {fileID: 2601057365770068430}
   - component: {fileID: 1695125466555018927}
   - component: {fileID: 2119454400765950867}
+  - component: {fileID: 827303720748603997}
   m_Layer: 0
-  m_Name: New VFX
+  m_Name: ExpOrbs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,7 +209,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 2
+      - m_Value: 1
         m_Name: Duration
         m_Overridden: 1
       - m_Value: 15
@@ -232,7 +233,7 @@ VisualEffect:
         m_Overridden: 1
       - m_Value: {x: 0, y: 0.25, z: -0.75}
         m_Name: OffSet
-        m_Overridden: 1
+        m_Overridden: 0
     m_Vector4f:
       m_Array:
       - m_Value: {x: 13.156611, y: 2.3462133, z: 0.93089217, w: 0}
@@ -250,7 +251,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 0}
+      - m_Value: {fileID: 3934934943557926827}
         m_Name: SkinMeshRenderer
         m_Overridden: 1
     m_Bool:
@@ -308,8 +309,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings: []
+  m_Bindings:
+  - {fileID: 827303720748603997}
   m_VisualEffect: {fileID: 2601057365770068430}
+--- !u!114 &827303720748603997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8557467263164074683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Property:
+    m_Name: AttractTarget
+  Target: {fileID: 0}
 --- !u!1 &9105515961324228998
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +565,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3884506177809122349}
   m_SourcePrefab: {fileID: 100100000, guid: 0b04b4ee27b36df4c94e4df3ea384a9f, type: 3}
+--- !u!137 &3934934943557926827 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1750197354950549132, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5849541209819881183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6243967936179992884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
@@ -952,9 +975,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0578611e469ba4c6bbb98d44db2cce1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skinnedMesh: {fileID: 0}
+  skinnedMesh: {fileID: 3934934943557926827}
   materials: []
-  VFXGraph: {fileID: 0}
+  VFXGraph: {fileID: 2601057365770068430}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  dissolveDuration: 2
+  dissolveDuration: 1
+  targetTransform: {fileID: 0}
+  vfxChild: {fileID: 8557467263164074683}
