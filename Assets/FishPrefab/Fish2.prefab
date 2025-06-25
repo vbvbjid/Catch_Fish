@@ -750,11 +750,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a491dbbf601384cedad1ea3c29c27e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  success: {fileID: 0}
-  struggle: {fileID: 0}
-  flee: {fileID: 0}
-  swim: {fileID: 0}
+  audioSource: {fileID: 3218306071907778594}
+  success: {fileID: 8300000, guid: 28a95bafa4df84d98ac06e94314a1e94, type: 3}
+  struggle: {fileID: 8300000, guid: 6fcd3dfb2e2ee471c8d6973c504eb350, type: 3}
+  flee: {fileID: 8300000, guid: f98b433cd8d6d41698bf54c27c9d6650, type: 3}
+  swim: {fileID: 8300000, guid: 8fb7e134819de486c9361ebdfc2a2fe3, type: 3}
   swimVolume: 0.2
   struggleVolume: 2
   fleeVolume: 10

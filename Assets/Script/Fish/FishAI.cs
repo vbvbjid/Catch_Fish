@@ -360,6 +360,7 @@ public class FishAI : MonoBehaviour
             spawner.ReturnFishToPool(gameObject);
             fishVisualEffect.RestoreMaterial();
             grabHandler.ResetIsCaught();
+            audioManager.PlaySwimSound();
         }
         else
         {
