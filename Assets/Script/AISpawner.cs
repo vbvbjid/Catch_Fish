@@ -92,6 +92,7 @@ public class AISpawner : MonoBehaviour
                     Quaternion randomRotation = Quaternion.Euler(Random.Range(-20, 20), Random.Range(0, 360), 0);
                     GameObject tempSpawn;
                     tempSpawn = Instantiate(AIObjects[i].objPrefab, RandomPosition(), randomRotation);
+                    tempSpawn.layer = LayerMask.NameToLayer("Water"); // Replace "Enemy" with your desired layer name
                     tempSpawn.transform.parent = tempGroup.transform;
                     tempSpawn.AddComponent<AIMove>();
                 }

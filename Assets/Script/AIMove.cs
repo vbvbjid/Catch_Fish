@@ -18,6 +18,8 @@ public class AIMove : MonoBehaviour
 
     private Collider m_collider;
     private RaycastHit m_hit;
+    [SerializeField]
+    private bool isGrabbed = false;
 
     void Start()
     {
@@ -28,7 +30,7 @@ public class AIMove : MonoBehaviour
     }
     void SetUpNPC()
     {
-        float m_scale = Random.Range(0f, 2f);
+        float m_scale = Random.Range(0.2f, 1f);
         transform.localScale += new Vector3(m_scale * 1.5f, m_scale, m_scale);
 
         if (transform.GetComponent<Collider>() != null && transform.GetComponent<Collider>().enabled == true)
@@ -38,6 +40,7 @@ public class AIMove : MonoBehaviour
     }
     void Update()
     {
+        if (isGrabbed) return;
         if (!m_hasTarget)
         {
             m_hasTarget = CanFindTarget();
@@ -57,7 +60,8 @@ public class AIMove : MonoBehaviour
     void CollierNPC()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, transform.localScale.z))
+        int layerMask = LayerMask.GetMask("Water", "Ground"); // only hit these layers
+        if (Physics.Raycast(transform.position, transform.forward, out hit, transform.localScale.z, layerMask))
         {
             if (hit.collider == m_collider | hit.collider.tag == "WayPoint")
             {
@@ -68,7 +72,14 @@ public class AIMove : MonoBehaviour
             {
                 m_hasTarget = false;
             }
-            Debug.Log(hit.collider.transform.parent.name + " " + hit.collider.transform.parent.position);
+            if (hit.collider.transform.parent == null)
+            {
+                Debug.Log(hit.collider.transform.name + " " + hit.collider.transform.position);
+            }
+            else
+            {
+                Debug.Log(hit.collider.transform.parent.name + " " + hit.collider.transform.parent.position);
+            }
         }
 
     }
@@ -105,5 +116,9 @@ public class AIMove : MonoBehaviour
 
         Vector3 LookAt = waypoint - this.transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(LookAt), TurnSpeed * Time.deltaTime);
+    }
+    public void ToggleGrab()
+    {
+        isGrabbed = !isGrabbed;
     }
 }

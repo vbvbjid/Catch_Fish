@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class FishAI : MonoBehaviour
 {
@@ -10,9 +11,10 @@ public class FishAI : MonoBehaviour
     public bool showDebugGizmos = true;
 
     // Component references
-    private FishMovement fishMovement;
-    private FishVerticalMovement verticalMovement;
-    private FishFleeBehavior fleeBehavior;
+    //private FishMovement fishMovement;
+    //private FishVerticalMovement verticalMovement;
+    private AIMove aiMove;
+    //private FishFleeBehavior fleeBehavior;
     private FishGrabHandler grabHandler;
     private FishAudioManager audioManager;
     private FishStateMachine stateMachine;
@@ -33,55 +35,57 @@ public class FishAI : MonoBehaviour
         SetupEventSubscriptions();
 
         // Initialize fish
-        InitializeFish();
+        //InitializeFish();
     }
 
     void Update()
     {
         // Update vertical movement (now speed-synchronized)
-        if (verticalMovement != null)
-        {
-            verticalMovement.UpdateVerticalMovement(Time.deltaTime);
+        // if (verticalMovement != null)
+        // {
+        //     verticalMovement.UpdateVerticalMovement(Time.deltaTime);
 
-            // Update movement component's orbit center with new height
-            if (fishMovement != null)
-            {
-                Vector3 newOrbitCenter = new Vector3(
-                    fishMovement.orbitCenter.x,
-                    verticalMovement.CurrentHeight,
-                    fishMovement.orbitCenter.z
-                );
-                fishMovement.SetOrbitCenter(newOrbitCenter);
-            }
-        }
+        //     // Update movement component's orbit center with new height
+        //     if (fishMovement != null)
+        //     {
+        //         Vector3 newOrbitCenter = new Vector3(
+        //             fishMovement.orbitCenter.x,
+        //             verticalMovement.CurrentHeight,
+        //             fishMovement.orbitCenter.z
+        //         );
+        //         fishMovement.SetOrbitCenter(newOrbitCenter);
+        //     }
+        // }
 
         // Update flee detection
-        if (fleeBehavior != null)
-        {
-            fleeBehavior.UpdateFleeDetection();
-        }
+        // if (fleeBehavior != null)
+        // {
+        //     fleeBehavior.UpdateFleeDetection();
+        // }
 
         // Update state machine
         UpdateStateMachine();
 
         // Update movement
-        if (fishMovement != null)
-        {
-            fishMovement.UpdateMovement(Time.deltaTime);
-        }
+        // if (fishMovement != null)
+        // {
+        //     fishMovement.UpdateMovement(Time.deltaTime);
+        // }
     }
 
     private void InitializeComponents()
     {
         // Get or add components
-        fishMovement = GetComponent<FishMovement>();
-        if (fishMovement == null) fishMovement = gameObject.AddComponent<FishMovement>();
+        // fishMovement = GetComponent<FishMovement>();
+        // if (fishMovement == null) fishMovement = gameObject.AddComponent<FishMovement>();
 
-        verticalMovement = GetComponent<FishVerticalMovement>();
-        if (verticalMovement == null) verticalMovement = gameObject.AddComponent<FishVerticalMovement>();
+        // verticalMovement = GetComponent<FishVerticalMovement>();
+        // if (verticalMovement == null) verticalMovement = gameObject.AddComponent<FishVerticalMovement>();
+        aiMove = GetComponent<AIMove>();
+        if (aiMove == null) aiMove = gameObject.AddComponent<AIMove>();
 
-        fleeBehavior = GetComponent<FishFleeBehavior>();
-        if (fleeBehavior == null) fleeBehavior = gameObject.AddComponent<FishFleeBehavior>();
+        // fleeBehavior = GetComponent<FishFleeBehavior>();
+        // if (fleeBehavior == null) fleeBehavior = gameObject.AddComponent<FishFleeBehavior>();
 
         grabHandler = GetComponent<FishGrabHandler>();
         if (grabHandler == null) grabHandler = gameObject.AddComponent<FishGrabHandler>();
@@ -96,8 +100,8 @@ public class FishAI : MonoBehaviour
         if (fishVisualEffect == null) fishVisualEffect = gameObject.AddComponent<FishVisualEffect>();
 
         // Get spawner reference if not assigned
-        if (spawner == null)
-            spawner = GetComponentInParent<SimpleFishSpawner>();
+        // if (spawner == null)
+        //     spawner = GetComponentInParent<SimpleFishSpawner>();
     }
 
     private void SetupEventSubscriptions()
@@ -115,26 +119,26 @@ public class FishAI : MonoBehaviour
         if (stateMachine != null)
         {
             stateMachine.OnEnterIdle += HandleEnterIdle;
-            stateMachine.OnEnterFleeing += HandleEnterFleeing;
+            // stateMachine.OnEnterFleeing += HandleEnterFleeing;
             stateMachine.OnEnterGrabbed += HandleEnterGrabbed;
-            stateMachine.OnEnterRecovering += HandleEnterRecovering;
+            // stateMachine.OnEnterRecovering += HandleEnterRecovering;
         }
     }
 
-    private void InitializeFish()
-    {
-        // Initialize vertical movement with orbit center Y
-        if (verticalMovement != null && fishMovement != null)
-        {
-            verticalMovement.Initialize(fishMovement.orbitCenter.y);
-        }
+    // private void InitializeFish()
+    // {
+    //     // Initialize vertical movement with orbit center Y
+    //     if (verticalMovement != null && fishMovement != null)
+    //     {
+    //         verticalMovement.Initialize(fishMovement.orbitCenter.y);
+    //     }
 
-        // Initialize movement
-        if (fishMovement != null)
-        {
-            fishMovement.Initialize();
-        }
-    }
+    //     // Initialize movement
+    //     if (fishMovement != null)
+    //     {
+    //         fishMovement.Initialize();
+    //     }
+    // }
 
     private void UpdateStateMachine()
     {
@@ -142,92 +146,92 @@ public class FishAI : MonoBehaviour
 
         switch (stateMachine.CurrentState)
         {
-            case FishStateMachine.FishState.Idle:
-                UpdateIdleState();
-                break;
-            case FishStateMachine.FishState.Fleeing:
-                UpdateFleeingState();
-                break;
+            // case FishStateMachine.FishState.Idle:
+            //     UpdateIdleState();
+            //     break;
+            // case FishStateMachine.FishState.Fleeing:
+            //     UpdateFleeingState();
+            //     break;
             case FishStateMachine.FishState.Grabbed:
                 UpdateGrabbedState();
                 break;
-            case FishStateMachine.FishState.Recovering:
-                UpdateRecoveringState();
-                break;
+            // case FishStateMachine.FishState.Recovering:
+            //     UpdateRecoveringState();
+            //     break;
         }
     }
 
-    private void UpdateIdleState()
-    {
-        // Update orbital movement
-        if (fishMovement != null)
-        {
-            fishMovement.UpdateOrbitMovement(Time.deltaTime);
-        }
+    // private void UpdateIdleState()
+    // {
+    //     //Update orbital movement
+    //     if (fishMovement != null)
+    //     {
+    //         fishMovement.UpdateOrbitMovement(Time.deltaTime);
+    //     }
 
-        // Check if we should start fleeing
-        if (fleeBehavior != null && fleeBehavior.ShouldStartFleeing())
-        {
-            stateMachine.TransitionToFleeing();
-        }
-    }
+    //     // Check if we should start fleeing
+    //     if (fleeBehavior != null && fleeBehavior.ShouldStartFleeing())
+    //     {
+    //         stateMachine.TransitionToFleeing();
+    //     }
+    // }
 
-    private void UpdateFleeingState()
-    {
-        // Update flee direction
-        if (fleeBehavior != null)
-        {
-            fleeBehavior.UpdateFleeDirection(Time.deltaTime);
+    // private void UpdateFleeingState()
+    // {
+    //     // Update flee direction
+    //     if (fleeBehavior != null)
+    //     {
+    //         fleeBehavior.UpdateFleeDirection(Time.deltaTime);
 
-            // Update flee movement
-            if (fishMovement != null)
-            {
-                fishMovement.UpdateFleeMovement(
-                    Time.deltaTime,
-                    fleeBehavior.FleeDirection,
-                    fleeBehavior.maxFleeDistance,
-                    fleeBehavior.fleeForce
-                );
-            }
+    //         //Update flee movement
+    //         if (fishMovement != null)
+    //         {
+    //             fishMovement.UpdateFleeMovement(
+    //                 Time.deltaTime,
+    //                 fleeBehavior.FleeDirection,
+    //                 fleeBehavior.maxFleeDistance,
+    //                 fleeBehavior.fleeForce
+    //             );
+    //         }
 
-            // Check if we should stop fleeing
-            if (fleeBehavior.ShouldStopFleeing())
-            {
-                stateMachine.TransitionToIdle();
-            }
-        }
-    }
+    //         // Check if we should stop fleeing
+    //         if (fleeBehavior.ShouldStopFleeing())
+    //         {
+    //             stateMachine.TransitionToIdle();
+    //         }
+    //     }
+    // }
 
     private void UpdateGrabbedState()
     {
         // Position is controlled by grab system
         // Keep movement component's position tracking in sync with actual transform position
-        if (fishMovement != null)
+        if (aiMove != null)
         {
             // Force the movement component to track the actual grabbed position
             // This prevents it from trying to move to orbit position while grabbed
-            fishMovement.SetCurrentPosition(transform.position);
+            aiMove.ToggleGrab();
         }
     }
 
-    private void UpdateRecoveringState()
-    {
-        if (stateMachine != null && fishMovement != null)
-        {
-            stateMachine.UpdateRecoveryProgress(Time.deltaTime, fishMovement.recoverySpeed);
+    // private void UpdateRecoveringState()
+    // {
+    //     if (stateMachine != null && fishMovement != null)
+    //     {
+    //         stateMachine.UpdateRecoveryProgress(Time.deltaTime, fishMovement.recoverySpeed);
 
-            fishMovement.UpdateRecoveryMovement(
-                Time.deltaTime,
-                stateMachine.RecoveryStartPos,
-                stateMachine.RecoveryProgress
-            );
+    //         fishMovement.UpdateRecoveryMovement(
+    //             Time.deltaTime,
+    //             stateMachine.RecoveryStartPos,
+    //             stateMachine.RecoveryProgress
+    //         );
 
-            if (stateMachine.IsRecoveryComplete())
-            {
-                stateMachine.TransitionToIdle();
-            }
-        }
-    }
+    //         if (stateMachine.IsRecoveryComplete())
+    //         {
+    //             stateMachine.TransitionToIdle();
+    //         }
+    //     }
+    // }
 
     // Event Handlers
     private async void HandleFishCaught()
@@ -263,9 +267,13 @@ public class FishAI : MonoBehaviour
         {
             // IMPORTANT: Make sure the movement component knows the fish's actual release position
             // before starting recovery
-            if (fishMovement != null)
+            // if (fishMovement != null)
+            // {
+            //     fishMovement.SetCurrentPosition(transform.position);
+            // }
+            if (aiMove != null)
             {
-                fishMovement.SetCurrentPosition(transform.position);
+                aiMove.ToggleGrab();
             }
 
             stateMachine?.TransitionToRecovering();
@@ -285,24 +293,24 @@ public class FishAI : MonoBehaviour
         if (audioManager != null)
             audioManager.SwitchFromStruggleToSwim();
 
-        if (fishMovement != null)
-        {
-            fishMovement.ResetSpeed();
-        }
+        // if (fishMovement != null)
+        // {
+        //     fishMovement.ResetSpeed();
+        // }
 
-        if (fleeBehavior != null)
-        {
-            fleeBehavior.ResetFleeDirection();
-        }
+        // if (fleeBehavior != null)
+        // {
+        //     fleeBehavior.ResetFleeDirection();
+        // }
     }
 
-    private void HandleEnterFleeing()
-    {
-        if (fishMovement != null)
-        {
-            fishMovement.IncreaseFleeSpeed();
-        }
-    }
+    // private void HandleEnterFleeing()
+    // {
+    //     if (fishMovement != null)
+    //     {
+    //         fishMovement.IncreaseFleeSpeed();
+    //     }
+    // }
 
     private void HandleEnterGrabbed()
     {
@@ -310,31 +318,31 @@ public class FishAI : MonoBehaviour
             audioManager.PlayStruggleSound();
     }
 
-    private void HandleEnterRecovering()
-    {
-        if (audioManager != null)
-            audioManager.SwitchFromStruggleToSwim();
+    // private void HandleEnterRecovering()
+    // {
+    //     if (audioManager != null)
+    //         audioManager.SwitchFromStruggleToSwim();
 
-        // Make sure the fish starts recovery from its actual current position
-        if (fishMovement != null)
-        {
-            fishMovement.SetCurrentPosition(transform.position);
-        }
-    }
+    //     // Make sure the fish starts recovery from its actual current position
+    //     if (fishMovement != null)
+    //     {
+    //         fishMovement.SetCurrentPosition(transform.position);
+    //     }
+    // }
 
     // Public API
-    public void SetOrbitCenter(Vector3 newOrbitCenter)
-    {
-        if (fishMovement != null)
-        {
-            fishMovement.SetOrbitCenter(newOrbitCenter);
-        }
+    // public void SetOrbitCenter(Vector3 newOrbitCenter)
+    // {
+    //     if (fishMovement != null)
+    //     {
+    //         fishMovement.SetOrbitCenter(newOrbitCenter);
+    //     }
 
-        if (verticalMovement != null)
-        {
-            verticalMovement.SetBaseHeight(newOrbitCenter.y);
-        }
-    }
+    //     if (verticalMovement != null)
+    //     {
+    //         verticalMovement.SetBaseHeight(newOrbitCenter.y);
+    //     }
+    // }
 
     public void ResetFishState()
     {
@@ -343,14 +351,14 @@ public class FishAI : MonoBehaviour
         // Reset all components
         stateMachine?.ResetState();
         grabHandler?.ResetGrabState();
-        fleeBehavior?.ResetFleeDirection();
-        verticalMovement?.ResetVerticalMovement();
-        fishMovement?.ResetSpeed();
+        // fleeBehavior?.ResetFleeDirection();
+        // verticalMovement?.ResetVerticalMovement();
+        // fishMovement?.ResetSpeed();
     }
 
     public void ForcePositionUpdate()
     {
-        fishMovement?.ForcePositionUpdate();
+        //fishMovement?.ForcePositionUpdate();
     }
 
     private void CatchFish()
@@ -358,15 +366,15 @@ public class FishAI : MonoBehaviour
         if (spawner != null)
         {
             spawner.ReturnFishToPool(gameObject);
-            fishVisualEffect.RestoreMaterial();
-            grabHandler.ResetIsCaught();
-            audioManager.PlaySwimSound();
         }
         else
         {
             Debug.Log("No pool system found, deactivating fish", this);
             gameObject.SetActive(false);
         }
+        fishVisualEffect.RestoreMaterial();
+        grabHandler.ResetIsCaught();
+        audioManager.PlaySwimSound();
     }
 
     // Properties for external access
@@ -379,129 +387,129 @@ public class FishAI : MonoBehaviour
             }
         }
     */
-    public float CurrentAngle => fishMovement?.CurrentAngle ?? 0f;
+    //public float CurrentAngle => fishMovement?.CurrentAngle ?? 0f;
     public float AccumulatedGrabTime => grabHandler?.AccumulatedGrabTime ?? 0f;
     public float TimeSinceLastRelease => grabHandler?.TimeSinceLastRelease ?? 0f;
     public FishStateMachine.FishState CurrentState => stateMachine?.CurrentState ?? FishStateMachine.FishState.Idle;
 
     // Expose orbit center for spawner compatibility
-    public Vector3 orbitCenter
-    {
-        /*
-            get
-            {
-                return fishMovement?.orbitCenter ?? Vector3.zero;
-            }
-        */
-        // usage: x = orbitCenter 
-        /*
-            if(fishMovement != null)
-            {
-                if(fishMovement.orbitCenter != null) x = fishMovement.orbitCenter;
-                else x = Vector3.zero;
-            }
-        */
-        get => fishMovement?.orbitCenter ?? Vector3.zero;
-        // usage orbitCenter = x
-        // if (fishMovement != null) fishMovement.orbitCenter = x;
-        set
-        {
-            if (fishMovement != null)
-                fishMovement.orbitCenter = value;
-        }
-    }
+    // public Vector3 orbitCenter
+    // {
+    //     /*
+    //         get
+    //         {
+    //             return fishMovement?.orbitCenter ?? Vector3.zero;
+    //         }
+    //     */
+    //     // usage: x = orbitCenter 
+    //     /*
+    //         if(fishMovement != null)
+    //         {
+    //             if(fishMovement.orbitCenter != null) x = fishMovement.orbitCenter;
+    //             else x = Vector3.zero;
+    //         }
+    //     */
+    //     get => fishMovement?.orbitCenter ?? Vector3.zero;
+    //     // usage orbitCenter = x
+    //     // if (fishMovement != null) fishMovement.orbitCenter = x;
+    //     set
+    //     {
+    //         if (fishMovement != null)
+    //             fishMovement.orbitCenter = value;
+    //     }
+    // }
 
-    public float orbitRadius
-    {
-        get => fishMovement?.orbitRadius ?? 0f;
-        set
-        {
-            if (fishMovement != null)
-                fishMovement.orbitRadius = value;
-        }
-    }
+    // public float orbitRadius
+    // {
+    //     get => fishMovement?.orbitRadius ?? 0f;
+    //     set
+    //     {
+    //         if (fishMovement != null)
+    //             fishMovement.orbitRadius = value;
+    //     }
+    // }
 
-    public float baseOrbitSpeed => fishMovement?.baseOrbitSpeed ?? 0f;
-    public float minSpeed => fishMovement?.minSpeed ?? 0f;
-    public float currentSpeed
-    {
-        get => fishMovement?.currentSpeed ?? 0f;
-        set
-        {
-            if (fishMovement != null)
-                fishMovement.currentSpeed = value;
-        }
-    }
+    // public float baseOrbitSpeed => fishMovement?.baseOrbitSpeed ?? 0f;
+    // public float minSpeed => fishMovement?.minSpeed ?? 0f;
+    // public float currentSpeed
+    // {
+    //     get => fishMovement?.currentSpeed ?? 0f;
+    //     set
+    //     {
+    //         if (fishMovement != null)
+    //             fishMovement.currentSpeed = value;
+    //     }
+    // }
 
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        if (!showDebugGizmos) return;
+        // if (!showDebugGizmos) return;
 
-        // Draw movement gizmos
-        if (fishMovement != null)
-        {
-            // Draw orbit path at current height
-            Vector3 orbitCenter = fishMovement.orbitCenter;
-            Gizmos.color = Color.cyan;
-            DrawWireCircle(orbitCenter, fishMovement.orbitRadius);
-        }
+        // // Draw movement gizmos
+        // if (fishMovement != null)
+        // {
+        //     // Draw orbit path at current height
+        //     Vector3 orbitCenter = fishMovement.orbitCenter;
+        //     Gizmos.color = Color.cyan;
+        //     DrawWireCircle(orbitCenter, fishMovement.orbitRadius);
+        // }
 
-        // Draw vertical movement gizmos - simplified for new system
-        if (verticalMovement != null && verticalMovement.enableVerticalMovement)
-        {
-            Gizmos.color = Color.magenta;
-            Vector3 baseCenter = new Vector3(fishMovement.orbitCenter.x, verticalMovement.BaseHeight, fishMovement.orbitCenter.z);
-            Vector3 heightRangeBottom = new Vector3(baseCenter.x, verticalMovement.BaseHeight - verticalMovement.maxAmplitude, baseCenter.z);
-            Vector3 heightRangeTop = new Vector3(baseCenter.x, verticalMovement.BaseHeight + verticalMovement.maxAmplitude, baseCenter.z);
+        // // Draw vertical movement gizmos - simplified for new system
+        // if (verticalMovement != null && verticalMovement.enableVerticalMovement)
+        // {
+        //     Gizmos.color = Color.magenta;
+        //     Vector3 baseCenter = new Vector3(fishMovement.orbitCenter.x, verticalMovement.BaseHeight, fishMovement.orbitCenter.z);
+        //     Vector3 heightRangeBottom = new Vector3(baseCenter.x, verticalMovement.BaseHeight - verticalMovement.maxAmplitude, baseCenter.z);
+        //     Vector3 heightRangeTop = new Vector3(baseCenter.x, verticalMovement.BaseHeight + verticalMovement.maxAmplitude, baseCenter.z);
 
-            // Draw max amplitude constraint bounds
-            Gizmos.DrawWireCube(heightRangeBottom, new Vector3(fishMovement.orbitRadius * 2, 0.05f, fishMovement.orbitRadius * 2));
-            Gizmos.DrawWireCube(heightRangeTop, new Vector3(fishMovement.orbitRadius * 2, 0.05f, fishMovement.orbitRadius * 2));
-            Gizmos.DrawLine(heightRangeBottom, heightRangeTop);
+        //     // Draw max amplitude constraint bounds
+        //     Gizmos.DrawWireCube(heightRangeBottom, new Vector3(fishMovement.orbitRadius * 2, 0.05f, fishMovement.orbitRadius * 2));
+        //     Gizmos.DrawWireCube(heightRangeTop, new Vector3(fishMovement.orbitRadius * 2, 0.05f, fishMovement.orbitRadius * 2));
+        //     Gizmos.DrawLine(heightRangeBottom, heightRangeTop);
 
-            // Draw current height
-            Gizmos.color = Color.yellow;
-            Vector3 currentHeightCenter = new Vector3(baseCenter.x, verticalMovement.CurrentHeight, baseCenter.z);
-            Gizmos.DrawWireCube(currentHeightCenter, new Vector3(fishMovement.orbitRadius * 2, 0.02f, fishMovement.orbitRadius * 2));
-        }
+        //     // Draw current height
+        //     Gizmos.color = Color.yellow;
+        //     Vector3 currentHeightCenter = new Vector3(baseCenter.x, verticalMovement.CurrentHeight, baseCenter.z);
+        //     Gizmos.DrawWireCube(currentHeightCenter, new Vector3(fishMovement.orbitRadius * 2, 0.02f, fishMovement.orbitRadius * 2));
+        // }
 
-        // Draw flee behavior gizmos
-        fleeBehavior?.DrawDebugGizmos();
+        // // Draw flee behavior gizmos
+        // fleeBehavior?.DrawDebugGizmos();
 
-        // Draw safe distance
-        if (fleeBehavior != null)
-        {
-            Gizmos.color = Color.green;
-            DrawWireCircle(fishMovement.orbitCenter, fleeBehavior.safeDistance);
-        }
+        // // Draw safe distance
+        // if (fleeBehavior != null)
+        // {
+        //     Gizmos.color = Color.green;
+        //     DrawWireCircle(fishMovement.orbitCenter, fleeBehavior.safeDistance);
+        // }
 
-        // Draw current target position
-        if (fishMovement != null)
-        {
-            Gizmos.color = Color.white;
-            Gizmos.DrawSphere(fishMovement.TargetPosition, 0.1f);
-        }
+        // // Draw current target position
+        // if (fishMovement != null)
+        // {
+        //     Gizmos.color = Color.white;
+        //     Gizmos.DrawSphere(fishMovement.TargetPosition, 0.1f);
+        // }
 
-        // Draw debug information
-        if (Application.isPlaying)
-        {
-            string debugText = $"State: {CurrentState}";
-            if (grabHandler != null && grabHandler.debugTimerLogging)
-                debugText += $"\nGrab Time: {AccumulatedGrabTime:F1}s\nSince Release: {TimeSinceLastRelease:F1}s";
-            if (verticalMovement != null && verticalMovement.debugVerticalMovement)
-            {
-                if (verticalMovement.enableVerticalMovement)
-                {
-                    float currentSpeed = fishMovement?.currentSpeed ?? 0f;
-                    debugText += $"\nHeight: {verticalMovement.CurrentHeight:F2}\nSpeed: {currentSpeed:F1}";
-                }
-                else
-                    debugText += $"\nVertical Movement: DISABLED";
-            }
+        // // Draw debug information
+        // if (Application.isPlaying)
+        // {
+        //     string debugText = $"State: {CurrentState}";
+        //     if (grabHandler != null && grabHandler.debugTimerLogging)
+        //         debugText += $"\nGrab Time: {AccumulatedGrabTime:F1}s\nSince Release: {TimeSinceLastRelease:F1}s";
+        //     if (verticalMovement != null && verticalMovement.debugVerticalMovement)
+        //     {
+        //         if (verticalMovement.enableVerticalMovement)
+        //         {
+        //             float currentSpeed = fishMovement?.currentSpeed ?? 0f;
+        //             debugText += $"\nHeight: {verticalMovement.CurrentHeight:F2}\nSpeed: {currentSpeed:F1}";
+        //         }
+        //         else
+        //             debugText += $"\nVertical Movement: DISABLED";
+        //     }
 
-            UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, debugText);
-        }
+        //     UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, debugText);
+        // }
     }
 
     void DrawWireCircle(Vector3 center, float radius, int segments = 32)
