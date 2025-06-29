@@ -30,8 +30,6 @@ public class AIMove : MonoBehaviour
     [SerializeField]
     private float fleeSpeedMultiplier = 2f; // How much faster to move when fleeing
     [SerializeField]
-    CapsuleCollider capsule;
-    [SerializeField]
     private float fleeDelay;
 
     void Start()
@@ -45,6 +43,7 @@ public class AIMove : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if(isGrabbed) return;
         if (other.CompareTag("Player"))
         {
             Debug.Log("Alert!! Player detected - initiating flee behavior");

@@ -337,13 +337,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1870428868780311076}
   - component: {fileID: 8778708033441148844}
-  m_Layer: 4
+  m_Layer: 3
   m_Name: detectionRef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1870428868780311076
 Transform:
   m_ObjectHideFlags: 0
@@ -611,10 +611,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7706572029778840654}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b04b4ee27b36df4c94e4df3ea384a9f,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4809260160112147969}
   m_SourcePrefab: {fileID: 100100000, guid: 0b04b4ee27b36df4c94e4df3ea384a9f, type: 3}
 --- !u!137 &3934934943557926827 stripped
@@ -862,7 +858,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -870,29 +866,6 @@ CapsuleCollider:
   m_Height: 0.9415624
   m_Direction: 2
   m_Center: {x: 0, y: 0.18407023, z: 0.00473845}
---- !u!136 &7706572029778840654
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6768021203490677646}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3399347
-  m_Height: 1.4664581
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.19464362, z: -0.028043985}
 --- !u!114 &4809260160112147969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -909,4 +882,4 @@ MonoBehaviour:
   isGrabbed: 0
   fleeDistance: 15
   fleeSpeedMultiplier: 2
-  capsule: {fileID: 0}
+  fleeDelay: 0.1
