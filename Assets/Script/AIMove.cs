@@ -31,6 +31,8 @@ public class AIMove : MonoBehaviour
     private float fleeSpeedMultiplier = 2f; // How much faster to move when fleeing
     [SerializeField]
     CapsuleCollider capsule;
+    [SerializeField]
+    private float fleeDelay;
 
     void Start()
     {
@@ -40,31 +42,46 @@ public class AIMove : MonoBehaviour
 
         SetUpNPC();
     }
-    
+
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             Debug.Log("Alert!! Player detected - initiating flee behavior");
-            InitiateFlee(other.transform.position);
+            //InitiateFlee(other.transform.position);
+            //StartFleeTimer();
+            StartCoroutine(SmallDelayThenDoSomething(other.transform.position));
         }
     }
-    
+    void OnTriggerStay(Collider other)
+    {
+
+    }
+    IEnumerator SmallDelayThenDoSomething(Vector3 pos)
+    {
+        yield return new WaitForSecondsRealtime(fleeDelay); // 50 ms
+        InitiateFlee(pos); // Trigger your event here
+    }
+
+    void StartFleeTimer()
+    {
+        float StartTime = Time.deltaTime;
+    }
     void InitiateFlee(Vector3 playerPosition)
     {
         // Calculate flee direction (opposite to player)
         Vector3 fleeDirection = (transform.position - playerPosition).normalized;
-        
+
         // Set flee waypoint
         m_wayPoint = transform.position + fleeDirection * fleeDistance;
-        
+
         // Ensure the flee point is within bounds (you might want to add bounds checking here)
         // m_wayPoint = ClampToPlayArea(m_wayPoint); // Implement this method if needed
-        
+
         // Set flee state
         m_isFleeing = true;
         m_hasTarget = true;
-        
+
         // Increase speed for fleeing
         m_speed = Random.Range(3f, 8f) * fleeSpeedMultiplier;
         m_animator.speed = m_speed / 2;
@@ -87,7 +104,7 @@ public class AIMove : MonoBehaviour
     void Update()
     {
         if (isGrabbed) return;
-        
+
         if (!m_hasTarget)
         {
             m_hasTarget = CanFindTarget();
@@ -102,7 +119,7 @@ public class AIMove : MonoBehaviour
         if (transform.position == m_wayPoint)
         {
             m_hasTarget = false;
-            
+
             // Reset flee state when reaching flee destination
             if (m_isFleeing)
             {
@@ -122,15 +139,15 @@ public class AIMove : MonoBehaviour
             {
                 return;
             }
-            
+
             // When fleeing, be more aggressive about finding new paths
             int randomNum = Random.Range(1, 100);
             int threshold = m_isFleeing ? 60 : 40; // Higher chance to change direction when fleeing
-            
+
             if (randomNum < threshold)
             {
                 m_hasTarget = false;
-                
+
                 // If we're fleeing and hit an obstacle, try to find an alternative flee path
                 if (m_isFleeing)
                 {
@@ -138,12 +155,12 @@ public class AIMove : MonoBehaviour
                     Vector3 alternateDirection = Vector3.Cross(transform.forward, Vector3.up).normalized;
                     if (Random.Range(0, 2) == 0)
                         alternateDirection = -alternateDirection;
-                    
+
                     m_wayPoint = transform.position + alternateDirection * fleeDistance;
                     m_hasTarget = true;
                 }
             }
-            
+
             if (hit.collider.transform.parent == null)
             {
                 Debug.Log(hit.collider.transform.name + " " + hit.collider.transform.position);
@@ -174,7 +191,7 @@ public class AIMove : MonoBehaviour
         {
             return true;
         }
-        
+
         m_wayPoint = m_AIManager.RandomWayPoint();
         if (m_lastWaypoint == m_wayPoint)
         {
@@ -193,7 +210,7 @@ public class AIMove : MonoBehaviour
     void RotateNPC(Vector3 waypoint, float currentSpeed)
     {
         float TurnSpeed = currentSpeed * Random.Range(1f, 3f);
-        
+
         // Turn faster when fleeing
         if (m_isFleeing)
         {
