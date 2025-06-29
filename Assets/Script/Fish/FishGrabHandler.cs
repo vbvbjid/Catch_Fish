@@ -178,7 +178,11 @@ public class FishGrabHandler : MonoBehaviour
         if (!isGrabbing && timerStarted) // Released
         {
             if (animator != null)
+            {
+                animator.speed = 1;
                 animator.SetBool("Struggle", false);
+            }
+                
             timerStarted = false;
 
             if (debugTimerLogging)
