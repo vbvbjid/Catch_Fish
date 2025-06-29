@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AIMove : MonoBehaviour
 {
+    private FishAudioManager AudioManager;
     private AISpawner m_AIManager;
 
     private bool m_hasTarget = false;
@@ -29,6 +30,7 @@ public class AIMove : MonoBehaviour
 
     void Start()
     {
+        AudioManager = transform.GetComponent<FishAudioManager>();
         m_AIManager = transform.parent.GetComponentInParent<AISpawner>();
         m_animator = GetComponent<Animator>();
 
@@ -38,13 +40,54 @@ public class AIMove : MonoBehaviour
     public void PlayerDetection()
     {
         CapsuleCollider capsule = GetComponent<CapsuleCollider>();
-        RaycastHit hit;
-        if (capsule.Raycast(new Ray(transform.position, transform.forward), out hit, 10f))
+        
+        // Use collider bounds for detection instead of raycast
+        Vector3 detectionCenter = transform.position + transform.forward * 5f; // 5 units forward
+        Vector3 detectionSize = new Vector3(capsule.radius * 2f, capsule.height, 10f); // Width, height, detection distance
+        
+        // Create detection bounds based on capsule collider shape
+        Bounds detectionBounds = new Bounds(detectionCenter, detectionSize);
+        
+        // Find all colliders with "Player" tag in the scene
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        
+        foreach (GameObject player in players)
         {
-            if (hit.collider.tag == "Player")
+            Collider playerCollider = player.GetComponent<Collider>();
+            if (playerCollider != null)
             {
-                Debug.Log("Alert!! Player detected - initiating flee behavior");
-                InitiateFlee(hit.collider.transform.position);
+                // Check if player's bounds intersect with our detection bounds
+                if (detectionBounds.Intersects(playerCollider.bounds))
+                {
+                    // Additional forward-facing check using dot product
+                    Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+                    float dotProduct = Vector3.Dot(transform.forward, directionToPlayer);
+                    
+                    // Only detect if player is roughly in front (dot product > 0.3 means within ~70 degrees)
+                    if (dotProduct > 0.3f)
+                    {
+                        Debug.Log("Alert!! Player detected - initiating flee behavior");
+                        InitiateFlee(player.transform.position);
+                        return; // Exit after detecting first player
+                    }
+                }
+            }
+            else
+            {
+                // Fallback: use transform position if no collider
+                float distance = Vector3.Distance(transform.position, player.transform.position);
+                if (distance <= 10f)
+                {
+                    Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+                    float dotProduct = Vector3.Dot(transform.forward, directionToPlayer);
+                    
+                    if (dotProduct > 0.3f)
+                    {
+                        Debug.Log("Alert!! Player detected - initiating flee behavior");
+                        InitiateFlee(player.transform.position);
+                        return;
+                    }
+                }
             }
         }
     }
@@ -67,7 +110,8 @@ public class AIMove : MonoBehaviour
         // Increase speed for fleeing
         m_speed = Random.Range(3f, 8f) * fleeSpeedMultiplier;
         m_animator.speed = m_speed / 2;
-        
+
+        AudioManager.PlayFleeSound();
         Debug.Log($"Fleeing to position: {m_wayPoint}");
     }
 
@@ -195,11 +239,11 @@ public class AIMove : MonoBehaviour
     {
         float TurnSpeed = currentSpeed * Random.Range(1f, 3f);
         
-        // // Turn faster when fleeing
-        // if (m_isFleeing)
-        // {
-        //     TurnSpeed *= 1.5f;
-        // }
+        // Turn faster when fleeing
+        if (m_isFleeing)
+        {
+            TurnSpeed *= 1.5f;
+        }
 
         Vector3 LookAt = waypoint - this.transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(LookAt), TurnSpeed * Time.deltaTime);
