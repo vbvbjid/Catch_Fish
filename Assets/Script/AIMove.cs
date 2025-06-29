@@ -18,7 +18,9 @@ public class AIMove : MonoBehaviour
     private Animator m_animator;
     private float m_speed;
 
+    [SerializeField]
     private Collider m_collider;
+    [SerializeField]
     private RaycastHit m_hit;
     [SerializeField]
     private bool isGrabbed = false;
@@ -27,6 +29,8 @@ public class AIMove : MonoBehaviour
     private float fleeDistance = 15f; // How far to flee
     [SerializeField]
     private float fleeSpeedMultiplier = 2f; // How much faster to move when fleeing
+    [SerializeField]
+    CapsuleCollider capsule;
 
     void Start()
     {
@@ -36,62 +40,16 @@ public class AIMove : MonoBehaviour
 
         SetUpNPC();
     }
-
-    public void PlayerDetection()
+    
+    void OnTriggerEnter(Collider other)
     {
-        CapsuleCollider capsule = GetComponent<CapsuleCollider>();
-        
-        // Use collider bounds for detection instead of raycast
-        Vector3 detectionCenter = transform.position + transform.forward * 5f; // 5 units forward
-        Vector3 detectionSize = new Vector3(capsule.radius * 2f, capsule.height, 10f); // Width, height, detection distance
-        
-        // Create detection bounds based on capsule collider shape
-        Bounds detectionBounds = new Bounds(detectionCenter, detectionSize);
-        
-        // Find all colliders with "Player" tag in the scene
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        
-        foreach (GameObject player in players)
+        if(other.CompareTag("Player"))
         {
-            Collider playerCollider = player.GetComponent<Collider>();
-            if (playerCollider != null)
-            {
-                // Check if player's bounds intersect with our detection bounds
-                if (detectionBounds.Intersects(playerCollider.bounds))
-                {
-                    // Additional forward-facing check using dot product
-                    Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-                    float dotProduct = Vector3.Dot(transform.forward, directionToPlayer);
-                    
-                    // Only detect if player is roughly in front (dot product > 0.3 means within ~70 degrees)
-                    if (dotProduct > 0.3f)
-                    {
-                        Debug.Log("Alert!! Player detected - initiating flee behavior");
-                        InitiateFlee(player.transform.position);
-                        return; // Exit after detecting first player
-                    }
-                }
-            }
-            else
-            {
-                // Fallback: use transform position if no collider
-                float distance = Vector3.Distance(transform.position, player.transform.position);
-                if (distance <= 10f)
-                {
-                    Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-                    float dotProduct = Vector3.Dot(transform.forward, directionToPlayer);
-                    
-                    if (dotProduct > 0.3f)
-                    {
-                        Debug.Log("Alert!! Player detected - initiating flee behavior");
-                        InitiateFlee(player.transform.position);
-                        return;
-                    }
-                }
-            }
+            Debug.Log("Alert!! Player detected - initiating flee behavior");
+            InitiateFlee(other.transform.position);
         }
     }
-
+    
     void InitiateFlee(Vector3 playerPosition)
     {
         // Calculate flee direction (opposite to player)
@@ -129,9 +87,6 @@ public class AIMove : MonoBehaviour
     void Update()
     {
         if (isGrabbed) return;
-        
-        // Check for player detection every frame
-        PlayerDetection();
         
         if (!m_hasTarget)
         {
