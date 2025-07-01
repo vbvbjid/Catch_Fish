@@ -689,7 +689,7 @@
                 {
                     "name": "",
                     "id": "4cbd3b7e-f4c4-461a-819e-71c889ab0791",
-                    "path": "<OculusTouchController>{LeftHand}/deviceVelocity",
+                    "path": "<QuestTouchPlusController>{LeftHand}/devicePose/velocity",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1505,7 +1505,7 @@
                 {
                     "name": "",
                     "id": "f5b7a9b3-29be-4568-94a2-1904aeb299e5",
-                    "path": "<OculusTouchController>{RightHand}/deviceVelocity",
+                    "path": "<QuestTouchPlusController>{RightHand}/devicePose/velocity",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

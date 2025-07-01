@@ -43,7 +43,7 @@ public class AIMove : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(isGrabbed) return;
+        if (isGrabbed) return;
         if (other.CompareTag("Player"))
         {
             Debug.Log("Alert!! Player detected - initiating flee behavior");
@@ -220,8 +220,14 @@ public class AIMove : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(LookAt), TurnSpeed * Time.deltaTime);
     }
 
-    public void ToggleGrab()
+    public void StopMoving()
     {
-        isGrabbed = !isGrabbed;
+        isGrabbed = true;  // Stop AI movement when grabbed
+        m_hasTarget = false;  // Clear current target
+    }
+
+    public void ResumeMove()
+    {
+        isGrabbed = false;  // Resume AI movement when released
     }
 }

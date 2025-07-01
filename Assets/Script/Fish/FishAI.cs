@@ -155,9 +155,9 @@ public class FishAI : MonoBehaviour
             case FishStateMachine.FishState.Grabbed:
                 UpdateGrabbedState();
                 break;
-            // case FishStateMachine.FishState.Recovering:
-            //     UpdateRecoveringState();
-            //     break;
+                // case FishStateMachine.FishState.Recovering:
+                //     UpdateRecoveringState();
+                //     break;
         }
     }
 
@@ -210,7 +210,7 @@ public class FishAI : MonoBehaviour
         {
             // Force the movement component to track the actual grabbed position
             // This prevents it from trying to move to orbit position while grabbed
-            aiMove.ToggleGrab();
+            aiMove.StopMoving();
         }
     }
 
@@ -259,23 +259,21 @@ public class FishAI : MonoBehaviour
     private void HandleFishGrabbed()
     {
         stateMachine?.TransitionToGrabbed();
+        // Ensure AIMove stops immediately
+        if (aiMove != null)
+        {
+            aiMove.StopMoving();
+        }
     }
 
     private void HandleFishReleased()
     {
         if (grabHandler != null && grabHandler.WasGrabbed)
         {
-            // IMPORTANT: Make sure the movement component knows the fish's actual release position
-            // before starting recovery
-            // if (fishMovement != null)
-            // {
-            //     fishMovement.SetCurrentPosition(transform.position);
-            // }
             if (aiMove != null)
             {
-                aiMove.ToggleGrab();
+                aiMove.ResumeMove();
             }
-
             stateMachine?.TransitionToRecovering();
         }
     }
