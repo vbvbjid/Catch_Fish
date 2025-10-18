@@ -8,19 +8,17 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 02 - Default
-  m_Shader: {fileID: -6465566751694194690, guid: d5cb5274b778141518374bbdc6a189ed,
+  m_Shader: {fileID: -6465566751694194690, guid: 573dc587473724269b29e996dad5909f,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _ALPHATEST_ON
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -76,6 +74,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Triplanar_2418d4524e3f4f2384c215faf5c6874c_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: ebc70eef00e4d49bd9a791bb60e03f23, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _base_map:
+        m_Texture: {fileID: 2800000, guid: afe2c9fa7b684dc43b6898d2c3e38431, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
