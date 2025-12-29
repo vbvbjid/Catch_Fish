@@ -6,22 +6,26 @@ using UnityEngine.XR;
 using Unity.XR.CoreUtils;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class VRPlayerMovementGrappling : MonoBehaviour
 {
     [Header("VR References")]
-    public XROrigin xrOrigin; // Or XRRig depending on your XR Interaction Toolkit version
-    public Transform cameraTransform; // VR camera
+    public Transform cameraTransform; // VR camera (Main Camera)
+    
+    [Header("Physics Body Setup")]
+    public float colliderHeight = 1.8f;
+    public float colliderRadius = 0.3f;
     
     [Header("Grappling Settings")]
     public float grappleFov = 95f;
     private Rigidbody rb;
+    private CapsuleCollider capsuleCol;
     
     [Header("Movement Control")]
     public bool freeze;
     public bool activeGrapple;
     
     [Header("Ground Check")]
-    public float playerHeight = 2f;
     public LayerMask whatIsGround;
     private bool grounded;
 
@@ -37,32 +41,43 @@ public class VRPlayerMovementGrappling : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        // START KINEMATIC - only enable physics during grapple
+        // rb.isKinematic = true;
+        // rb.useGravity = false;
         
-        // If XR Origin not assigned, try to find it
-        if (xrOrigin == null)
-        {
-            xrOrigin = GetComponentInParent<XROrigin>();
-        }
+        capsuleCol = GetComponent<CapsuleCollider>();
         
         // If camera not assigned, use main camera
         if (cameraTransform == null && Camera.main != null)
         {
             cameraTransform = Camera.main.transform;
         }
+        
+        // Setup capsule collider
+        if (capsuleCol != null)
+        {
+            capsuleCol.radius = colliderRadius;
+            capsuleCol.height = colliderHeight;
+            capsuleCol.center = new Vector3(0, colliderHeight / 2f, 0);
+        }
     }
 
     private void Update()
     {
         // Ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        Vector3 colliderBottom = transform.position + new Vector3(0, colliderRadius, 0);
+        grounded = Physics.Raycast(colliderBottom, Vector3.down, colliderRadius + 0.1f, whatIsGround);
         
         StateHandler();
         
-        // Handle drag
-        if (grounded && !activeGrapple)
-            rb.drag = 5f;
-        else
-            rb.drag = 0;
+        // Handle drag only when physics is active
+        if (!rb.isKinematic)
+        {
+            if (grounded && !activeGrapple)
+                rb.drag = 5f;
+            else
+                rb.drag = 0;
+        }
     }
 
     private void StateHandler()
@@ -71,17 +86,26 @@ public class VRPlayerMovementGrappling : MonoBehaviour
         if (freeze)
         {
             state = MovementState.freeze;
-            rb.velocity = Vector3.zero;
+            if (!rb.isKinematic)
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
         // Mode - Grappling (during grapple movement)
         else if (activeGrapple)
         {
             state = MovementState.grappling;
         }
-        // Mode - Normal
+        // Mode - Normal (kinematic, no physics)
         else
         {
             state = MovementState.normal;
+            // Ensure kinematic when not grappling
+            // if (!rb.isKinematic)
+            // {
+            //     rb.isKinematic = true;
+            //     rb.useGravity = false;
+            // }
         }
     }
 
@@ -90,31 +114,30 @@ public class VRPlayerMovementGrappling : MonoBehaviour
     {
         activeGrapple = true;
 
-        Vector3 velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+        // Enable physics for grappling
+        rb.isKinematic = false;
+        rb.useGravity = true;
+
+        // Use camera position for trajectory calculation
+        Vector3 startPosition = cameraTransform.position;
+        Vector3 velocityToSet = CalculateJumpVelocity(startPosition, targetPosition, trajectoryHeight);
         
-        // Small delay before applying velocity
-        StartCoroutine(SetVelocityDelayed(velocityToSet, 0.1f));
+        // Apply velocity
+        rb.velocity = velocityToSet;
         
         // Auto-reset after 3 seconds as safety measure
-        StartCoroutine(ResetRestrictionsDelayed(3f));
-    }
-
-    private IEnumerator SetVelocityDelayed(Vector3 velocity, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        rb.velocity = velocity;
-    }
-
-    private IEnumerator ResetRestrictionsDelayed(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        ResetRestrictions();
+        Invoke(nameof(ResetRestrictions), 3f);
     }
 
     public void ResetRestrictions()
     {
         activeGrapple = false;
         freeze = false;
+        
+        // Disable physics after grapple
+        // rb.isKinematic = true;
+        // rb.useGravity = false;
+        // rb.velocity = Vector3.zero;
     }
 
     // Calculate the velocity needed for a ballistic trajectory
@@ -151,13 +174,30 @@ public class VRPlayerMovementGrappling : MonoBehaviour
     public void FreezePlayer()
     {
         freeze = true;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        if (!rb.isKinematic)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
     }
 
     // Unfreeze player
     public void UnfreezePlayer()
     {
         freeze = false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Visualize the collider in editor
+        if (capsuleCol != null)
+        {
+            Gizmos.color = grounded ? Color.green : Color.red;
+            Vector3 center = transform.position + capsuleCol.center;
+            
+            // Draw wireframe capsule
+            Gizmos.DrawWireSphere(center + Vector3.up * (capsuleCol.height / 2f - capsuleCol.radius), capsuleCol.radius);
+            Gizmos.DrawWireSphere(center - Vector3.up * (capsuleCol.height / 2f - capsuleCol.radius), capsuleCol.radius);
+        }
     }
 }
