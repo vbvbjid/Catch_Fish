@@ -21,6 +21,12 @@ public class VRGrappling : MonoBehaviour
     private Vector3 grapplePoint;
     public float overshootYAxis = 2f;
 
+    [Header("Aim Assist / Thick Ray")]
+    public bool useSphereCast = true;
+    [Range(0.01f, 1.0f)]
+    public float sphereCastRadius = 0.15f;   // widen detection
+    public QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.Ignore;
+
     [Header("Cooldown")]
     public float grappleCooldown = 1f;
     private float grappleCooldownTimer;
@@ -32,6 +38,18 @@ public class VRGrappling : MonoBehaviour
     public bool showGrapplePreview = true;
     public Color lineColorNormal = Color.white;
     public Color lineColorInvalid = Color.red;
+
+    [Header("Grapple Hint (Reticle)")]
+    public Transform grappleHint;                 // assign a small sphere/quad in scene or prefab instance
+    public Color hintValidColor = Color.cyan;
+    public Color hintInvalidColor = Color.red;
+    public float hintBaseScale = 0.04f;
+    public float hintScaleWhenValid = 1.35f;
+    public float hintSmooth = 14f;
+
+[Header("Preview Performance")]
+public int previewEveryNFrames = 2;           // 1 = every frame, 2 = every other frame
+
 
     private bool grappling;
     
@@ -83,40 +101,59 @@ public class VRGrappling : MonoBehaviour
         grappling = true;
 
         RaycastHit hit;
-        Vector3 rayOrigin = vrCamera.position;
-        Vector3 rayDirection = vrCamera.forward;
+        Vector3 rayOrigin = gunTip.position;
+        Vector3 rayDirection = gunTip.forward;
 
-        // Perform raycast to find grapple point
-        if (Physics.Raycast(rayOrigin, rayDirection, out hit, maxGrappleDistance, whatIsGrappleable))
+        bool hasHit;
+
+        if (useSphereCast)
+        {
+            hasHit = Physics.SphereCast(
+                rayOrigin,
+                sphereCastRadius,
+                rayDirection,
+                out hit,
+                maxGrappleDistance,
+                whatIsGrappleable,
+                triggerInteraction
+            );
+        }
+        else
+        {
+            hasHit = Physics.Raycast(
+                rayOrigin,
+                rayDirection,
+                out hit,
+                maxGrappleDistance,
+                whatIsGrappleable,
+                triggerInteraction
+            );
+        }
+
+        if (hasHit)
         {
             grapplePoint = hit.point;
-            
-            // Valid grapple point found
+
             if (lr != null)
             {
                 lr.startColor = lineColorNormal;
                 lr.endColor = lineColorNormal;
             }
-            
-            // Haptic feedback on valid grapple
+
             SendHapticFeedback(0.3f, 0.1f);
-            
             Invoke(nameof(ExecuteGrapple), grappleDelayTime);
         }
         else
         {
-            // No valid grapple point - show invalid feedback
             grapplePoint = rayOrigin + rayDirection * maxGrappleDistance;
-            
+
             if (lr != null)
             {
                 lr.startColor = lineColorInvalid;
                 lr.endColor = lineColorInvalid;
             }
-            
-            // Haptic feedback on invalid grapple
+
             SendHapticFeedback(0.1f, 0.05f);
-            
             Invoke(nameof(StopGrapple), grappleDelayTime);
         }
 
@@ -222,7 +259,7 @@ public class VRGrappling : MonoBehaviour
         if (vrCamera != null)
         {
             Gizmos.color = grappleCooldownTimer > 0 ? Color.red : Color.green;
-            Gizmos.DrawRay(vrCamera.position, vrCamera.forward * maxGrappleDistance);
+            Gizmos.DrawRay(gunTip.position, gunTip.forward * maxGrappleDistance);
         }
     }
 }

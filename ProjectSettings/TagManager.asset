@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WayPoint
   - Obstacle
+  - Grappable
   layers:
   - Default
   - TransparentFX
